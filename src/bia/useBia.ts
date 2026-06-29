@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { res } from "./assets";
+import { editImage, generateImage, HERO_PROMPT } from "./fal";
 import {
   DEFAULT_THEME,
   EDIT_CHIPS,
@@ -92,8 +93,14 @@ function initialState(): BiaState {
     dragging: false,
     cardReady: false,
     slackV: 1,
+    heroV1: null,
+    heroV2: null,
   };
 }
+
+// Keep the regenerating shimmer visible for at least this long, even when Fal
+// (or the fallback) resolves faster, so the motion reads as intentional.
+const MIN_GEN_MS = 1400;
 
 type Patch = Partial<BiaState> | ((prev: BiaState) => Partial<BiaState>);
 
@@ -350,16 +357,19 @@ export function useBia() {
           ],
         }));
         scrollConv();
-        later(() => {
+        const t0 = Date.now();
+        const reveal = (url: string | null) => {
           setState((s) => ({
             cardReady: true,
             slackV: 1,
             version: 1,
             suggestions: EDIT_CHIPS,
+            heroV1: url,
+            heroV2: null,
             msgs: s.msgs
               .filter((m) => m.id !== "gen")
               .concat([
-                { id: uid(), role: "bia", kind: "card", cardVersion: 1, cardMeta: metaFor(1), isEdit: false, time: now() },
+                { id: uid(), role: "bia", kind: "card", cardVersion: 1, cardMeta: metaFor(1), isEdit: false, heroUrl: url || undefined, time: now() },
                 {
                   id: uid(),
                   role: "bia",
@@ -370,7 +380,10 @@ export function useBia() {
               ]),
           }));
           scrollConv();
-        }, 2100);
+        };
+        generateImage(HERO_PROMPT).then((url) => {
+          later(() => reveal(url), Math.max(0, MIN_GEN_MS - (Date.now() - t0)));
+        });
       }, 500);
     }
   }, [setState, uid, now, scrollConv, later, metaFor]);
@@ -394,20 +407,37 @@ export function useBia() {
         msgs: [...s.msgs, { id: "gen2", role: "bia", kind: "generating", genLabel: "Editing the welcome card — applying your changes…", time: now() }],
       }));
       scrollConv();
-      later(() => {
+      const finish = (url: string | null) => {
         setState((s) => ({
           slackV: nv,
           version: nv,
           suggestions: EDIT_CHIPS,
+          heroV2: url || s.heroV2,
           msgs: s.msgs
             .filter((m) => m.id !== "gen2")
             .concat([
-              { id: uid(), role: "bia", kind: "card", cardVersion: nv, cardMeta: metaFor(nv), isEdit: true, time: now() },
+              {
+                id: uid(),
+                role: "bia",
+                kind: "card",
+                cardVersion: nv,
+                cardMeta: metaFor(nv),
+                isEdit: true,
+                heroUrl: (url || (nv === 2 ? s.heroV2 || s.heroV1 : s.heroV1)) || undefined,
+                time: now(),
+              },
               { id: uid(), role: "bia", kind: "text", time: now(), text: reply },
             ]),
         }));
         scrollConv();
-      }, 1900);
+      };
+      const src = stateRef.current.heroV2 || stateRef.current.heroV1;
+      if (src) {
+        const t0 = Date.now();
+        editImage(src, text).then((url) => later(() => finish(url), Math.max(0, MIN_GEN_MS - (Date.now() - t0))));
+      } else {
+        later(() => finish(null), 1900);
+      }
     },
     [setState, now, scrollConv, later, uid, metaFor],
   );
@@ -519,11 +549,12 @@ export function useBia() {
     setState((s) => ({ comments: [...s.comments, c], pendingPin: null, cDraft: "", activeComment: id }));
     if (tags) {
       setState({ regenerating: true });
-      later(() => {
+      const apply = (url: string | null) => {
         setState((s) => ({
           version: 2,
           regenerating: false,
           justUpdated: true,
+          heroV2: url || s.heroV2,
           comments: s.comments.map((cc) =>
             cc.id === id
               ? {
@@ -543,7 +574,14 @@ export function useBia() {
         }));
         toast("Bia updated this asset · now showing v2");
         later(() => setState({ justUpdated: false }), 1600);
-      }, 2300);
+      };
+      const src = stateRef.current.heroV2 || stateRef.current.heroV1;
+      if (src) {
+        const t0 = Date.now();
+        editImage(src, text).then((url) => later(() => apply(url), Math.max(0, 1800 - (Date.now() - t0))));
+      } else {
+        later(() => apply(null), 2300);
+      }
     }
   }, [uid, now, setState, later, toast]);
 
@@ -847,6 +885,7 @@ export function useBia() {
 
     // review
     version: s.version,
+    heroImage: (s.version === 2 ? s.heroV2 || s.heroV1 : s.heroV1) || undefined,
     regenerating: s.regenerating,
     comments,
     commentCount: s.comments.length,

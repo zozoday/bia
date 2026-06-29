@@ -40,7 +40,7 @@ export default function Review({ v }: { v: Vals }) {
           <div style={v.canvasStyle}>
             <div onClick={v.onStageClick} style={{ position: "relative", width: "min(78%, 720px)", aspectRatio: "40/21", borderRadius: 10, overflow: "hidden", boxShadow: "0 30px 70px rgba(0,0,0,0.5)", cursor: "crosshair" }}>
               <div style={{ width: "100%", height: "100%", pointerEvents: "none" }}>
-                <WelcomeCard version={v.version} accent={v.accent} accentText={v.accentText} surface={v.cardSurface} ink={v.cardInk} muted={v.cardMuted} brand={v.cardBrand} wordmark={v.cardWordmark} />
+                <WelcomeCard version={v.version} accent={v.accent} accentText={v.accentText} surface={v.cardSurface} ink={v.cardInk} muted={v.cardMuted} brand={v.cardBrand} wordmark={v.cardWordmark} heroImage={v.heroImage} />
               </div>
 
               {v.comments.map((c) => (

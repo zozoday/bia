@@ -10,6 +10,8 @@ export interface WelcomeCardProps {
   muted?: string;
   brand?: string;
   wordmark?: boolean;
+  /** A Fal-generated hero image URL. Falls back to the bundled grain when absent. */
+  heroImage?: string;
 }
 
 function hexA(hex: string, a: number): string {
@@ -49,7 +51,7 @@ export default function WelcomeCard(props: WelcomeCardProps) {
   const markSrc = v2
     ? res("markOrange", "/assets/mark-orange.svg")
     : res("markWhite", "/assets/mark-white.svg");
-  const heroImg = res("heroGrain", "/assets/hero-grain.png");
+  const heroImg = props.heroImage || res("heroGrain", "/assets/hero-grain.png");
   const initialColor = v2 ? accent : accentText;
   const bigColor = v2 ? accentText : ink;
   const eyebrowColor = v2 ? hexA(accentText, 0.82) : accent;

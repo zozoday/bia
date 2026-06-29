@@ -52,7 +52,7 @@ export default function Library({ v }: { v: Vals }) {
           <div key={a.id} className="bia-asset-card" onClick={a.onOpen} style={{ cursor: "pointer", background: "#fff", border: "1px solid #E0D9CF", borderRadius: 18, overflow: "hidden" }}>
             <div style={{ width: "100%", aspectRatio: "40/21", position: "relative", background: "#1D1D1D", overflow: "hidden" }}>
               {a.isHero && (
-                <WelcomeCard version={a.version} accent={v.accent} accentText={v.accentText} surface={v.cardSurface} ink={v.cardInk} muted={v.cardMuted} brand={v.cardBrand} wordmark={v.cardWordmark} />
+                <WelcomeCard version={a.version} accent={v.accent} accentText={v.accentText} surface={v.cardSurface} ink={v.cardInk} muted={v.cardMuted} brand={v.cardBrand} wordmark={v.cardWordmark} heroImage={v.heroImage} />
               )}
               {a.isImage && <div style={a.thumbStyle} />}
               {a.isVideo && (

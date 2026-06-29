@@ -189,7 +189,7 @@ export default function SlackSurface({ v }: { v: Vals }) {
                   {m.isCard && (
                     <div style={{ marginTop: 6, maxWidth: 430, border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, overflow: "hidden", background: "#15171A" }}>
                       <div style={{ width: "100%", aspectRatio: "40/21", position: "relative" }}>
-                        <WelcomeCard version={m.cardVersion} accent={v.accent} accentText={v.accentText} surface={v.cardSurface} ink={v.cardInk} muted={v.cardMuted} brand={v.cardBrand} wordmark={v.cardWordmark} />
+                        <WelcomeCard version={m.cardVersion} accent={v.accent} accentText={v.accentText} surface={v.cardSurface} ink={v.cardInk} muted={v.cardMuted} brand={v.cardBrand} wordmark={v.cardWordmark} heroImage={m.heroUrl} />
                         {m.isEdit && (
                           <div style={{ position: "absolute", top: 10, left: 10, background: "rgba(20,20,20,0.72)", color: "#fff", fontSize: 11, fontWeight: 600, padding: "4px 9px", borderRadius: 9999, backdropFilter: "blur(4px)" }}>
                             ✦ Edited

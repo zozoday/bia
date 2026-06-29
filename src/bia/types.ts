@@ -38,6 +38,8 @@ export interface Msg {
   cardVersion?: number;
   cardMeta?: string;
   isEdit?: boolean;
+  /** Generated hero image URL for a card message (absent → bundled grain). */
+  heroUrl?: string;
 }
 
 export interface Reply {
@@ -114,4 +116,7 @@ export interface BiaState {
   dragging: boolean;
   cardReady: boolean;
   slackV: number;
+  /** Generated hero image for the original (v1) and edited (v2) welcome card. */
+  heroV1: string | null;
+  heroV2: string | null;
 }
