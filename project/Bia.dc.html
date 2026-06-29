@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<meta name="ext-resource-dependency" content="assets/mark-white.svg" data-resource-id="markWhite" />
+<meta name="ext-resource-dependency" content="assets/mark-orange.svg" data-resource-id="markOrange" />
+<meta name="ext-resource-dependency" content="assets/mark-black.svg" data-resource-id="markBlack" />
+<meta name="ext-resource-dependency" content="assets/hero-grain.png" data-resource-id="heroGrain" />
+<meta name="ext-resource-dependency" content="assets/full-frame.png" data-resource-id="fullFrame" />
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#FF5B10">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FF5B10"/>
+    <circle cx="600" cy="360" r="150" fill="#ffffff"/>
+    <path d="M540 420 L540 310 Q540 290 560 290 Q580 290 580 310 L580 360 Q580 380 600 380 Q620 380 620 360 L620 310 Q620 290 640 290 Q660 290 660 310 L660 420" fill="none" stroke="#FF5B10" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="600" y="600" font-family="Poppins, sans-serif" font-size="92" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="-4">Bia</text>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face { font-family:"iBrands Ligature"; src:url("fonts/iBrandsLigature.ttf") format("truetype"); font-weight:400; font-display:swap; }
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#0e0e0e;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.16);border-radius:20px;border:3px solid transparent;background-clip:padding-box;}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,0.28);background-clip:padding-box;}
+@keyframes biaTyping{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes biaShimmer{0%{background-position:-180% 0}100%{background-position:180% 0}}
+@keyframes biaFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes biaPop{0%{transform:translate(-50%,-50%) scale(0)}60%{transform:translate(-50%,-50%) scale(1.18)}100%{transform:translate(-50%,-50%) scale(1)}}
+@keyframes biaSpin{to{transform:rotate(360deg)}}
+@keyframes biaPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,91,16,0.5)}70%{box-shadow:0 0 0 12px rgba(255,91,16,0)}}
+@keyframes biaScan{0%{transform:translateY(-100%)}100%{transform:translateY(2400%)}}
+</style>
+</helmet>
+
+<div style="position:fixed; inset:0; font-family:'Poppins',sans-serif; letter-spacing:-0.04em; color:#000; font-weight:500; -webkit-font-smoothing:antialiased; overflow:hidden;">
+
+<!-- ============ SLACK SURFACE ============ -->
+<sc-if value="{{ isSlack }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex; height:100%; width:100%; background:#1A1D21;">
+
+  <!-- workspace rail -->
+  <div style="width:68px; flex:none; background:#15171A; display:flex; flex-direction:column; align-items:center; padding:14px 0; gap:14px; border-right:1px solid rgba(255,255,255,0.06);">
+    <div style="width:42px; height:42px; border-radius:14px; background:#FF5B10; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px rgba(255,255,255,0.18);">
+      <img src="assets/mark-white.svg" style="width:54%; height:54%; object-fit:contain;" />
+    </div>
+    <div style="width:42px; height:42px; border-radius:14px; background:#2A2D31; display:flex; align-items:center; justify-content:center; color:#9A9DA1; font-weight:600; font-size:15px;">N</div>
+    <div style="width:42px; height:42px; border-radius:14px; background:#2A2D31; display:flex; align-items:center; justify-content:center; color:#9A9DA1; font-weight:600; font-size:15px;">P</div>
+    <div style="width:42px; height:42px; border-radius:14px; border:1.5px dashed rgba(255,255,255,0.18); display:flex; align-items:center; justify-content:center; color:#9A9DA1; font-size:22px; font-weight:300;">+</div>
+  </div>
+
+  <!-- channel sidebar -->
+  <div style="width:248px; flex:none; background:#1A1D21; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.06);">
+    <div style="height:56px; flex:none; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid rgba(255,255,255,0.06); cursor:pointer;">
+      <div style="color:#fff; font-weight:600; font-size:16px;">Magic Lantern</div>
+      <div style="color:#9A9DA1; font-size:11px;">▾</div>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:12px 8px;">
+      <div style="color:#9A9DA1; font-size:13px; padding:6px 12px;">Channels</div>
+      <div style="color:#B5B8BC; font-size:15px; padding:6px 12px; border-radius:8px;">#&nbsp;&nbsp;general</div>
+      <div style="color:#B5B8BC; font-size:15px; padding:6px 12px; border-radius:8px;">#&nbsp;&nbsp;design</div>
+      <div style="color:#B5B8BC; font-size:15px; padding:6px 12px; border-radius:8px;">#&nbsp;&nbsp;marketing</div>
+      <div style="color:#B5B8BC; font-size:15px; padding:6px 12px; border-radius:8px;">#&nbsp;&nbsp;launch-room</div>
+      <div style="color:#9A9DA1; font-size:13px; padding:14px 12px 6px;">Direct messages</div>
+      <div style="display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:8px; background:#FF5B10;">
+        <div style="width:22px; height:22px; border-radius:7px; background:#fff; display:flex; align-items:center; justify-content:center; flex:none;"><img src="assets/mark-orange.svg" style="width:60%; height:60%;" /></div>
+        <span style="color:#fff; font-weight:600; font-size:15px;">Bia</span>
+        <span style="margin-left:auto; font-size:9px; font-weight:600; letter-spacing:0.06em; background:rgba(255,255,255,0.22); color:#fff; padding:2px 5px; border-radius:4px;">APP</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:7px 12px; color:#B5B8BC; font-size:15px;"><span style="width:9px;height:9px;border-radius:50%;background:#2BAC76;"></span>Devin Rao</div>
+      <div style="display:flex; align-items:center; gap:10px; padding:7px 12px; color:#B5B8BC; font-size:15px;"><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid #6A6D71;"></span>Maya Chen</div>
+    </div>
+    <div style="flex:none; padding:10px 12px; border-top:1px solid rgba(255,255,255,0.06);">
+      <div style="display:flex; gap:3px; background:rgba(255,255,255,0.06); padding:3px; border-radius:9999px;">
+        <button onClick="{{ goSlack }}" style="flex:1; cursor:pointer; border:none; font-family:inherit; font-size:12px; font-weight:600; letter-spacing:-0.02em; padding:7px 0; border-radius:9999px; background:{{ swSlackBg }}; color:{{ swSlackFg }};">Slack</button>
+        <button onClick="{{ goWeb }}" style="flex:1; cursor:pointer; border:none; font-family:inherit; font-size:12px; font-weight:600; letter-spacing:-0.02em; padding:7px 0; border-radius:9999px; background:{{ swWebBg }}; color:{{ swWebFg }};">Bia web app</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- conversation -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column; background:#1A1D21;">
+    <div style="height:56px; flex:none; display:flex; align-items:center; gap:12px; padding:0 20px; border-bottom:1px solid rgba(255,255,255,0.06);">
+      <div style="width:30px; height:30px; border-radius:9px; background:#FF5B10; display:flex; align-items:center; justify-content:center; flex:none;"><img src="assets/mark-white.svg" style="width:56%;height:56%;" /></div>
+      <div style="color:#fff; font-weight:600; font-size:16px;">Bia</div>
+      <span style="font-size:9px; font-weight:600; letter-spacing:0.06em; background:#2A2D31; color:#B5B8BC; padding:3px 6px; border-radius:4px;">APP</span>
+      <div style="color:#9A9DA1; font-size:13px; margin-left:4px;">Design partner · Active</div>
+    </div>
+
+    <div id="bia-conv" ref="{{ convRef }}" style="flex:1; overflow-y:auto; padding:24px 28px 8px; background:#1A1D21;">
+      <div style="max-width:760px;">
+        <!-- intro divider -->
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:22px;">
+          <div style="height:1px; flex:1; background:rgba(255,255,255,0.08);"></div>
+          <div style="color:#9A9DA1; font-size:12px;">Today</div>
+          <div style="height:1px; flex:1; background:rgba(255,255,255,0.08);"></div>
+        </div>
+
+        <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="2">
+        <div style="display:flex; gap:12px; padding:9px 0; animation:biaFade 240ms ease both;">
+          <sc-if value="{{ m.isBia }}" hint-placeholder-val="{{ true }}">
+            <div style="width:38px; height:38px; border-radius:10px; background:#FF5B10; display:flex; align-items:center; justify-content:center; flex:none;"><img src="assets/mark-white.svg" style="width:56%;height:56%;" /></div>
+          </sc-if>
+          <sc-if value="{{ m.isUser }}">
+            <div style="width:38px; height:38px; border-radius:10px; background:#0019FF; color:#fff; display:flex; align-items:center; justify-content:center; flex:none; font-weight:600; font-size:14px;">SO</div>
+          </sc-if>
+          <div style="min-width:0; flex:1;">
+            <div style="display:flex; align-items:baseline; gap:9px; margin-bottom:3px;">
+              <span style="color:#fff; font-weight:600; font-size:15px;">{{ m.author }}</span>
+              <sc-if value="{{ m.isBia }}" hint-placeholder-val="{{ true }}"><span style="font-size:9px; font-weight:600; letter-spacing:0.06em; background:#2A2D31; color:#B5B8BC; padding:2px 5px; border-radius:4px;">APP</span></sc-if>
+              <span style="color:#9A9DA1; font-size:12px;">{{ m.time }}</span>
+            </div>
+            <sc-if value="{{ m.isText }}" hint-placeholder-val="{{ true }}">
+              <div style="color:#D7D9DC; font-size:15px; line-height:1.5; white-space:pre-line; max-width:620px;">{{ m.text }}</div>
+            </sc-if>
+            <sc-if value="{{ m.isGenerating }}">
+              <div style="margin-top:4px; max-width:420px; border:1px solid rgba(255,255,255,0.09); border-radius:14px; padding:16px; background:#15171A;">
+                <div style="display:flex; align-items:center; gap:10px; color:#D7D9DC; font-size:14px;">
+                  <span style="width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,91,16,0.3);border-top-color:#FF5B10;display:inline-block;animation:biaSpin 0.7s linear infinite;"></span>
+                  {{ m.genLabel }}
+                </div>
+                <div style="margin-top:12px; height:8px; border-radius:6px; overflow:hidden; background:linear-gradient(90deg,#222 25%,#3a3a3a 37%,#222 63%); background-size:200% 100%; animation:biaShimmer 1.3s linear infinite;"></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ m.isCard }}">
+              <div style="margin-top:6px; max-width:430px; border:1px solid rgba(255,255,255,0.1); border-radius:16px; overflow:hidden; background:#15171A;">
+                <div style="width:100%; aspect-ratio:40/21; position:relative;">
+                  <dc-import name="WelcomeCard" version="{{ m.cardVersion }}" accent="{{ accent }}" accent-text="{{ accentText }}" surface="{{ cardSurface }}" ink="{{ cardInk }}" muted="{{ cardMuted }}" brand="{{ cardBrand }}" wordmark="{{ cardWordmark }}" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import>
+                  <sc-if value="{{ m.isEdit }}"><div style="position:absolute; top:10px; left:10px; background:rgba(20,20,20,0.72); color:#fff; font-size:11px; font-weight:600; padding:4px 9px; border-radius:9999px; backdrop-filter:blur(4px);">✦ Edited</div></sc-if>
+                </div>
+                <div style="padding:14px 16px;">
+                  <div style="color:#fff; font-weight:600; font-size:15px;">Welcome — Maya Chen.png</div>
+                  <div style="color:#9A9DA1; font-size:13px; margin-top:2px;">{{ m.cardMeta }}</div>
+                  <div style="display:flex; gap:9px; margin-top:14px; flex-wrap:wrap;">
+                    <button onClick="{{ goReview }}" style="border:none; cursor:pointer; background:#FF5B10; color:#fff; font-family:inherit; font-weight:600; font-size:14px; letter-spacing:-0.02em; padding:10px 16px; border-radius:9999px;">Review in Bia →</button>
+                    <button onClick="{{ postChannel }}" style="cursor:pointer; background:transparent; color:#D7D9DC; border:1px solid rgba(255,255,255,0.18); font-family:inherit; font-weight:500; font-size:14px; padding:10px 16px; border-radius:9999px;">Post to #design</button>
+                    <button onClick="{{ regenSlack }}" style="cursor:pointer; background:transparent; color:#D7D9DC; border:1px solid rgba(255,255,255,0.18); font-family:inherit; font-weight:500; font-size:14px; padding:10px 16px; border-radius:9999px;">Regenerate</button>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        </sc-for>
+
+        <sc-if value="{{ typing }}">
+        <div style="display:flex; gap:12px; padding:9px 0;">
+          <div style="width:38px; height:38px; border-radius:10px; background:#FF5B10; display:flex; align-items:center; justify-content:center; flex:none;"><img src="assets/mark-white.svg" style="width:56%;height:56%;" /></div>
+          <div style="display:flex; align-items:center; gap:5px; height:38px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#9A9DA1;animation:biaTyping 1.1s infinite;"></span>
+            <span style="width:7px;height:7px;border-radius:50%;background:#9A9DA1;animation:biaTyping 1.1s infinite .18s;"></span>
+            <span style="width:7px;height:7px;border-radius:50%;background:#9A9DA1;animation:biaTyping 1.1s infinite .36s;"></span>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ showInlineSuggestions }}">
+        <div style="display:flex; gap:8px; flex-wrap:wrap; padding:4px 0 6px 50px; animation:biaFade 240ms ease both;">
+          <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="3">
+            <button onClick="{{ s.onClick }}" style="cursor:pointer; background:rgba(255,91,16,0.1); color:#FF7A3D; border:1px solid rgba(255,91,16,0.32); font-family:inherit; font-weight:500; font-size:14px; padding:9px 15px; border-radius:9999px;">{{ s.label }}</button>
+          </sc-for>
+        </div>
+        </sc-if>
+        <div style="height:8px;"></div>
+      </div>
+    </div>
+
+    <!-- composer -->
+    <div style="flex:none; padding:0 28px 22px;">
+      <div style="max-width:760px;">
+        <div style="border:1px solid rgba(255,255,255,0.16); border-radius:14px; background:#222528; overflow:hidden;">
+          <div style="display:flex; gap:14px; padding:8px 14px; border-bottom:1px solid rgba(255,255,255,0.07); color:#9A9DA1; font-size:14px;">
+            <span style="font-weight:700;">B</span><span style="font-style:italic;">i</span><span style="text-decoration:line-through;">S</span><span>🔗</span>
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:10px; padding:10px 12px 10px 14px;">
+            <input value="{{ composer }}" onInput="{{ onComposerInput }}" onKeyDown="{{ onComposerKey }}" placeholder="Message Bia" style="flex:1; min-width:0; background:transparent; border:none; outline:none; color:#fff; font-family:inherit; font-size:15px; letter-spacing:-0.02em;" />
+            <button onClick="{{ sendSlack }}" style="width:36px; height:36px; flex:none; border:none; cursor:pointer; border-radius:9px; background:#FF5B10; color:#fff; display:flex; align-items:center; justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ WEB SURFACE ============ -->
+<sc-if value="{{ isWeb }}">
+<div style="display:flex; height:100%; width:100%; background:#F6F2EF;">
+
+  <!-- left rail -->
+  <div style="width:244px; flex:none; background:#FFFFFF; border-right:1px solid #E0D9CF; display:flex; flex-direction:column; padding:18px 14px;">
+    <div style="display:flex; align-items:center; gap:10px; padding:6px 8px 18px;">
+      <div style="width:34px; height:34px; border-radius:50%; background:#FF5B10; display:flex; align-items:center; justify-content:center; flex:none;"><img src="assets/mark-white.svg" style="width:54%;height:54%;" /></div>
+      <div style="line-height:1.05;">
+        <div style="font-weight:600; font-size:17px;">Bia</div>
+        <div style="font-size:11px; color:#969496;">by magic lantern</div>
+      </div>
+    </div>
+
+    <button onClick="{{ goSlack }}" style="display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; background:#FF5B10; color:#fff; border:none; font-family:inherit; font-weight:600; font-size:14px; padding:11px; border-radius:9999px; margin-bottom:18px;">+ New with Bia</button>
+
+    <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#A5A3A4; padding:6px 10px;">Library</div>
+    <div onClick="{{ goLibrary }}" style="padding:9px 10px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:500; color:{{ libColor }}; background:{{ libBg }};">All assets</div>
+
+    <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#A5A3A4; padding:14px 10px 6px;">Workspace</div>
+    <sc-for list="{{ navWorkspace }}" as="n" hint-placeholder-count="3">
+      <div onClick="{{ n.onClick }}" style="padding:9px 10px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:500; color:{{ n.color }}; background:{{ n.bg }};">{{ n.label }}</div>
+    </sc-for>
+
+    <div style="margin-top:auto; display:flex; gap:3px; background:#F3EEEB; padding:3px; border-radius:9999px; margin-bottom:8px;">
+      <button onClick="{{ goSlack }}" style="flex:1; cursor:pointer; border:none; font-family:inherit; font-size:12px; font-weight:600; letter-spacing:-0.02em; padding:7px 0; border-radius:9999px; background:{{ wSlackBg }}; color:{{ wSlackFg }};">Slack</button>
+      <button onClick="{{ goWeb }}" style="flex:1; cursor:pointer; border:none; font-family:inherit; font-size:12px; font-weight:600; letter-spacing:-0.02em; padding:7px 0; border-radius:9999px; background:{{ wWebBg }}; color:{{ wWebFg }};">Bia web app</button>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px; padding:10px; border-top:1px solid #E0D9CF;">
+      <div style="width:32px; height:32px; border-radius:50%; background:#0019FF; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600;">SO</div>
+      <div style="line-height:1.1; min-width:0;">
+        <div style="font-size:13px; font-weight:600;">Sana Okafor</div>
+        <div style="font-size:11px; color:#969496;">Admin</div>
+      </div>
+      <div onClick="{{ goSlack }}" title="Open in Slack" style="margin-left:auto; cursor:pointer; color:#969496;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- main -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column; position:relative;">
+
+    <!-- LIBRARY -->
+    <sc-if value="{{ atLibrary }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1; overflow-y:auto;">
+      <div style="padding:34px 40px 16px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px;">
+        <div>
+          <h1 style="margin:0; font-size:40px; font-weight:600; letter-spacing:-0.04em;">All assets</h1>
+          <div style="color:#6D6B6B; font-size:15px; margin-top:6px;">Everything Bia and your team have made — on brand, in one place.</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px; background:#fff; border:1px solid #E0D9CF; border-radius:9999px; padding:9px 15px; width:230px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#969496" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-3.6-3.6"/></svg>
+            <span style="color:#A5A3A4; font-size:14px;">Search assets</span>
+          </div>
+          <button onClick="{{ pickFiles }}" style="cursor:pointer; border:none; background:#1D1D1D; color:#fff; font-family:inherit; font-weight:600; font-size:14px; padding:11px 18px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V5M7 10l5-5 5 5"/><path d="M5 19h14"/></svg> Upload
+          </button>
+          <input ref="{{ fileRef }}" type="file" multiple="true" accept="image/*,video/*,application/pdf" onChange="{{ onFiles }}" style="display:none;" />
+        </div>
+      </div>
+      <div style="padding:8px 40px 14px; display:flex; gap:8px;">
+        <span style="background:#1D1D1D; color:#fff; font-size:13px; font-weight:500; padding:7px 14px; border-radius:9999px;">All</span>
+        <span style="background:#fff; border:1px solid #E0D9CF; color:#565657; font-size:13px; font-weight:500; padding:7px 14px; border-radius:9999px;">Images</span>
+        <span style="background:#fff; border:1px solid #E0D9CF; color:#565657; font-size:13px; font-weight:500; padding:7px 14px; border-radius:9999px;">Video</span>
+        <span style="background:#fff; border:1px solid #E0D9CF; color:#565657; font-size:13px; font-weight:500; padding:7px 14px; border-radius:9999px;">Docs</span>
+      </div>
+
+      <div onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" style="{{ gridStyle }}">
+        <div onClick="{{ pickFiles }}" style="{{ dropCardStyle }}">
+          <div style="width:46px; height:46px; border-radius:50%; background:{{ dropIconBg }}; display:flex; align-items:center; justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{ accent }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V5M7 10l5-5 5 5"/><path d="M5 19h14"/></svg>
+          </div>
+          <div style="font-size:15px; font-weight:600; margin-top:14px;">{{ dropTitle }}</div>
+          <div style="font-size:13px; color:#969496; margin-top:4px; text-align:center; max-width:200px;">Images, video, and PDFs. Bia tags them to your brand kit on upload.</div>
+        </div>
+        <sc-for list="{{ assets }}" as="a" hint-placeholder-count="0">
+        <div onClick="{{ a.onOpen }}" style="cursor:pointer; background:#fff; border:1px solid #E0D9CF; border-radius:18px; overflow:hidden; transition:transform 160ms ease, box-shadow 160ms ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 34px rgba(0,0,0,0.1);">
+          <div style="width:100%; aspect-ratio:40/21; position:relative; background:#1D1D1D; overflow:hidden;">
+            <sc-if value="{{ a.isHero }}" hint-placeholder-val="{{ true }}">
+              <dc-import name="WelcomeCard" version="{{ a.version }}" accent="{{ accent }}" accent-text="{{ accentText }}" surface="{{ cardSurface }}" ink="{{ cardInk }}" muted="{{ cardMuted }}" brand="{{ cardBrand }}" wordmark="{{ cardWordmark }}" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import>
+            </sc-if>
+            <sc-if value="{{ a.isImage }}">
+              <div style="{{ a.thumbStyle }}"></div>
+            </sc-if>
+            <sc-if value="{{ a.isVideo }}">
+              <div style="{{ a.thumbStyle }}"></div>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+                <div style="width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,0.92); display:flex; align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1D1D1D"><path d="M8 5v14l11-7z"/></svg></div>
+              </div>
+              <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.66); color:#fff; font-size:12px; font-weight:500; padding:3px 8px; border-radius:6px;">{{ a.duration }}</div>
+            </sc-if>
+            <sc-if value="{{ a.isDoc }}">
+              <div style="position:absolute; inset:0; background:#F3EEEB; display:flex; align-items:center; justify-content:center;">
+                <div style="position:relative; width:88px; height:108px;">
+                  <div style="position:absolute; inset:0; left:10px; top:8px; background:#E0D9CF; border-radius:6px;"></div>
+                  <div style="position:absolute; inset:0; left:5px; top:4px; background:#fff; border:1px solid #E0D9CF; border-radius:6px;"></div>
+                  <div style="position:absolute; inset:0; background:#fff; border:1px solid #C1BFC3; border-radius:6px; padding:14px 12px;">
+                    <div style="height:5px; width:60%; background:{{ accent }}; border-radius:3px;"></div>
+                    <div style="height:4px; width:90%; background:#E0D9CF; border-radius:3px; margin-top:9px;"></div>
+                    <div style="height:4px; width:80%; background:#E0D9CF; border-radius:3px; margin-top:6px;"></div>
+                    <div style="height:4px; width:88%; background:#E0D9CF; border-radius:3px; margin-top:6px;"></div>
+                  </div>
+                </div>
+                <div style="position:absolute; bottom:10px; right:10px; background:#1D1D1D; color:#fff; font-size:12px; font-weight:500; padding:3px 8px; border-radius:6px;">{{ a.pages }} pages</div>
+              </div>
+            </sc-if>
+          </div>
+          <div style="padding:14px 16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="font-size:15px; font-weight:600; letter-spacing:-0.03em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ a.name }}</div>
+              <span style="flex:none; font-size:11px; font-weight:600; padding:4px 9px; border-radius:9999px; background:{{ a.statusBg }}; color:{{ a.statusFg }};">{{ a.status }}</span>
+            </div>
+            <div style="color:#969496; font-size:13px; margin-top:5px; display:flex; justify-content:space-between;">
+              <span>{{ a.typeLabel }}</span><span>{{ a.meta }}</span>
+            </div>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- REVIEW -->
+    <sc-if value="{{ atReview }}">
+    <div style="flex:1; display:flex; min-height:0;">
+      <!-- stage column -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+        <div style="height:62px; flex:none; display:flex; align-items:center; gap:14px; padding:0 24px; border-bottom:1px solid #E0D9CF; background:#fff;">
+          <button onClick="{{ goLibrary }}" style="cursor:pointer; background:transparent; border:none; color:#565657; display:flex; align-items:center; gap:6px; font-family:inherit; font-size:14px; font-weight:500;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg> Library
+          </button>
+          <div style="width:1px; height:24px; background:#E0D9CF;"></div>
+          <div style="font-size:16px; font-weight:600;">Welcome — Maya Chen</div>
+          <div style="display:flex; gap:4px; margin-left:4px; background:#F3EEEB; padding:3px; border-radius:9999px;">
+            <button onClick="{{ setV1 }}" style="cursor:pointer; border:none; font-family:inherit; font-size:12px; font-weight:600; padding:5px 11px; border-radius:9999px; background:{{ v1bg }}; color:{{ v1fg }};">v1</button>
+            <button onClick="{{ setV2 }}" style="cursor:pointer; border:none; font-family:inherit; font-size:12px; font-weight:600; padding:5px 11px; border-radius:9999px; background:{{ v2bg }}; color:{{ v2fg }};">v2</button>
+          </div>
+          <div style="margin-left:auto; display:flex; align-items:center; gap:10px;">
+            <button onClick="{{ openShare }}" style="cursor:pointer; background:#fff; border:1px solid #E0D9CF; color:#1D1D1D; font-family:inherit; font-weight:600; font-size:14px; padding:9px 16px; border-radius:9999px; display:flex; align-items:center; gap:7px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg> Share
+            </button>
+            <button onClick="{{ approve }}" style="cursor:pointer; background:#1D1D1D; border:none; color:#fff; font-family:inherit; font-weight:600; font-size:14px; padding:10px 18px; border-radius:9999px;">Approve</button>
+          </div>
+        </div>
+
+        <div ref="{{ stageRef }}" onMouseDown="{{ onStageDown }}" style="flex:1; min-height:0; position:relative; overflow:hidden; cursor:grab; user-select:none; -webkit-user-select:none; background-image:radial-gradient(circle at 50% 40%, #2A2727 0%, #161616 78%);">
+
+          <div style="{{ canvasStyle }}">
+            <div onClick="{{ onStageClick }}" style="position:relative; width:min(78%, 720px); aspect-ratio:40/21; border-radius:10px; overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,0.5); cursor:crosshair;">
+              <dc-import name="WelcomeCard" version="{{ version }}" accent="{{ accent }}" accent-text="{{ accentText }}" surface="{{ cardSurface }}" ink="{{ cardInk }}" muted="{{ cardMuted }}" brand="{{ cardBrand }}" wordmark="{{ cardWordmark }}" hint-size="100%,100%" style="width:100%;height:100%;display:block;pointer-events:none;"></dc-import>
+
+              <sc-for list="{{ comments }}" as="c" hint-placeholder-count="0">
+                <button onClick="{{ c.onFocus }}" style="position:absolute; left:{{ c.x }}%; top:{{ c.y }}%; transform:translate(-50%,-50%) scale({{ invZoom }}); transform-origin:center; width:30px; height:30px; border-radius:50% 50% 50% 2px; border:2px solid #fff; background:{{ c.pinBg }}; color:#fff; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; animation:biaPop 280ms ease both; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:3;">{{ c.num }}</button>
+              </sc-for>
+
+              <sc-if value="{{ showPending }}">
+                <div style="position:absolute; left:{{ pendingPin.x }}%; top:{{ pendingPin.y }}%; transform:translate(-50%,-50%) scale({{ invZoom }}); transform-origin:center; width:30px; height:30px; border-radius:50% 50% 50% 2px; background:#FF5B10; border:2px solid #fff; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; z-index:4; animation:biaPulse 1.4s infinite;">+</div>
+              </sc-if>
+
+              <sc-if value="{{ regenerating }}">
+                <div style="position:absolute; inset:0; z-index:5; background:rgba(20,20,20,0.55); backdrop-filter:blur(2px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; overflow:hidden;">
+                  <div style="position:absolute; left:0; right:0; height:36%; background:linear-gradient(180deg, transparent, rgba(255,91,16,0.32), transparent); animation:biaScan 1.5s linear infinite;"></div>
+                  <div style="width:30px;height:30px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:#FF5B10;animation:biaSpin 0.7s linear infinite;"></div>
+                  <div style="color:#fff; font-size:14px; font-weight:500; letter-spacing:-0.02em;">Bia is regenerating · applying Lantern Orange</div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <!-- hint -->
+          <div style="position:absolute; top:16px; left:50%; transform:translateX(-50%); color:#9A9DA1; font-size:13px; display:flex; align-items:center; gap:8px; background:rgba(20,20,20,0.6); padding:7px 14px; border-radius:9999px; backdrop-filter:blur(6px); pointer-events:none;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 9 9 0 0 1-4-1L3 20l1-5.5a8.5 8.5 0 1 1 17-3z"/></svg>
+            Click to comment · tag <span style="color:#FF7A3D; font-weight:600;">@Bia</span> · drag to pan · pinch to zoom
+          </div>
+
+          <!-- zoom controls -->
+          <div style="position:absolute; top:16px; left:18px; display:flex; align-items:center; gap:2px; background:rgba(20,20,20,0.82); border:1px solid rgba(255,255,255,0.1); border-radius:9999px; padding:5px; box-shadow:0 8px 26px rgba(0,0,0,0.35); backdrop-filter:blur(8px);">
+            <button onClick="{{ zoomOut }}" title="Zoom out" style="cursor:pointer; border:none; background:transparent; color:#fff; width:34px; height:34px; border-radius:9999px; display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.12)">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+            </button>
+            <button onClick="{{ fitView }}" title="Reset to fit" style="cursor:pointer; border:none; background:transparent; color:#fff; font-family:inherit; font-size:13px; font-weight:600; letter-spacing:-0.02em; min-width:52px; height:34px; border-radius:9999px;" style-hover="background:rgba(255,255,255,0.12)">{{ zoomLabel }}</button>
+            <button onClick="{{ zoomIn }}" title="Zoom in" style="cursor:pointer; border:none; background:transparent; color:#fff; width:34px; height:34px; border-radius:9999px; display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.12)">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div style="width:1px; height:20px; background:rgba(255,255,255,0.16); margin:0 4px;"></div>
+            <button onClick="{{ fitView }}" title="Fit to screen" style="cursor:pointer; border:none; background:transparent; color:#fff; width:34px; height:34px; border-radius:9999px; display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.12)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- comments panel -->
+      <div style="width:380px; flex:none; background:#fff; border-left:1px solid #E0D9CF; display:flex; flex-direction:column;">
+        <div style="height:62px; flex:none; display:flex; align-items:center; justify-content:space-between; padding:0 20px; border-bottom:1px solid #E0D9CF;">
+          <div style="font-size:16px; font-weight:600;">Comments</div>
+          <div style="font-size:13px; color:#969496;">{{ commentCount }} · {{ resolvedCount }} resolved</div>
+        </div>
+
+        <div style="flex:1; overflow-y:auto; padding:16px;">
+          <sc-for list="{{ comments }}" as="c" hint-placeholder-count="1">
+          <div style="margin-bottom:14px; border:1px solid {{ c.borderColor }}; border-radius:14px; padding:14px; background:{{ c.cardBg }}; animation:biaFade 240ms ease both;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:26px; height:26px; border-radius:50%; background:{{ c.pinBg }}; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;">{{ c.num }}</div>
+              <div style="width:28px; height:28px; border-radius:50%; background:{{ c.avatarBg }}; color:#fff; font-size:11px; font-weight:600; display:flex; align-items:center; justify-content:center; flex:none;">{{ c.initials }}</div>
+              <div style="font-size:13px; font-weight:600;">{{ c.author }}</div>
+              <div style="font-size:12px; color:#A5A3A4; margin-left:auto;">{{ c.time }}</div>
+            </div>
+            <div style="font-size:14px; line-height:1.5; color:#1D1D1D; margin-top:9px;">{{ c.text }}</div>
+
+            <sc-for list="{{ c.replies }}" as="r" hint-placeholder-count="0">
+              <div style="margin-top:11px; padding-left:12px; border-left:2px solid #F3EEEB; display:flex; gap:9px;">
+                <div style="width:24px; height:24px; border-radius:50%; background:#FF5B10; flex:none; display:flex; align-items:center; justify-content:center;"><img src="assets/mark-white.svg" style="width:56%;height:56%;" /></div>
+                <div>
+                  <div style="font-size:12px; font-weight:600;">Bia <span style="font-weight:500; color:#A5A3A4;">· {{ r.time }}</span></div>
+                  <sc-if value="{{ r.working }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex; align-items:center; gap:7px; margin-top:4px; color:#FF7A3D; font-size:13px;">
+                      <span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,91,16,0.3);border-top-color:#FF5B10;display:inline-block;animation:biaSpin .7s linear infinite;"></span>{{ r.text }}
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.done }}">
+                    <div style="font-size:13px; line-height:1.5; color:#565657; margin-top:3px;">{{ r.text }}</div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+
+            <div style="display:flex; align-items:center; gap:8px; margin-top:12px;">
+              <button onClick="{{ c.onResolve }}" style="cursor:pointer; font-family:inherit; font-size:12px; font-weight:600; padding:6px 12px; border-radius:9999px; border:1px solid {{ c.resolveBorder }}; background:{{ c.resolveBg }}; color:{{ c.resolveFg }}; display:flex; align-items:center; gap:6px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>{{ c.resolveLabel }}
+              </button>
+            </div>
+          </div>
+          </sc-for>
+          <div style="height:4px;"></div>
+        </div>
+
+        <!-- comment composer -->
+        <sc-if value="{{ showPending }}">
+        <div style="flex:none; border-top:1px solid #E0D9CF; padding:14px 16px; background:#FBF9F7; animation:biaFade 200ms ease both;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+            <div style="width:22px; height:22px; border-radius:50% 50% 50% 2px; background:#FF5B10; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ nextNum }}</div>
+            <div style="font-size:13px; font-weight:600;">New comment</div>
+            <button onClick="{{ cancelPin }}" style="margin-left:auto; cursor:pointer; background:transparent; border:none; color:#A5A3A4; font-family:inherit; font-size:13px;">Cancel</button>
+          </div>
+          <textarea value="{{ cDraft }}" onInput="{{ onCDraftInput }}" placeholder="Leave a note, or tell Bia what to change…" style="width:100%; min-height:64px; resize:none; border:1px solid #E0D9CF; border-radius:10px; padding:10px 12px; font-family:inherit; font-size:14px; letter-spacing:-0.02em; outline:none; background:#fff;"></textarea>
+          <div onClick="{{ quickFill }}" style="cursor:pointer; margin-top:8px; font-size:12px; color:#FF7A3D; font-weight:500;">＋ @Bia change the background to our Lantern Orange</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:12px;">
+            <button onClick="{{ toggleTag }}" style="cursor:pointer; font-family:inherit; font-size:13px; font-weight:600; padding:7px 13px; border-radius:9999px; border:1px solid {{ tagBorder }}; background:{{ tagBg }}; color:{{ tagFg }}; display:flex; align-items:center; gap:6px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#FF5B10; display:inline-flex; align-items:center; justify-content:center;"><img src="assets/mark-white.svg" style="width:60%;height:60%;" /></span>@Bia
+            </button>
+            <button onClick="{{ postComment }}" style="margin-left:auto; cursor:pointer; font-family:inherit; font-weight:600; font-size:14px; padding:9px 18px; border-radius:9999px; border:none; background:#FF5B10; color:#fff;">Comment</button>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- BRAND KIT -->
+    <sc-if value="{{ atBrandkit }}">
+    <div style="flex:1; overflow-y:auto; padding:34px 40px 60px; position:relative;">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:24px;">
+        <div>
+          <h1 style="margin:0; font-size:40px; font-weight:600; letter-spacing:-0.04em;">Brand kit</h1>
+          <div style="color:#6D6B6B; font-size:15px; margin-top:6px; max-width:520px;">Bia pulls from this kit on every asset it makes — so everything ships on-brand, automatically.</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; padding:7px 9px 7px 16px; border-radius:9999px; background:{{ kitChipBg }}; border:1px solid {{ kitChipBorder }};">
+          <span style="width:9px; height:9px; border-radius:50%; background:{{ accent }};"></span>
+          <span style="font-size:13px; font-weight:600;">{{ brandName }}</span>
+          <sc-if value="{{ isThemed }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px; color:#969496;">· from {{ sourceUrl }}</span></sc-if>
+        </div>
+      </div>
+
+      <!-- EXTRACT FROM URL -->
+      <div style="margin-top:24px; background:#fff; border:1px solid #E0D9CF; border-radius:18px; padding:20px 22px;">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5B10" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+          <div style="font-size:16px; font-weight:600;">Extract a brand kit from a URL</div>
+        </div>
+        <div style="font-size:14px; color:#6D6B6B; margin-top:6px; max-width:620px;">Paste any website. Bia reads its logo, palette, and type — then re-skins your kit and every asset in the library to match. Revert anytime.</div>
+        <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:260px; display:flex; align-items:center; gap:10px; background:#F6F2EF; border:1px solid {{ urlBorder }}; border-radius:9999px; padding:11px 18px;">
+            <span style="color:#969496; font-size:14px;">https://</span>
+            <input value="{{ urlInput }}" onInput="{{ onUrlInput }}" onKeyDown="{{ onUrlKey }}" placeholder="stripe.com" style="flex:1; min-width:0; background:transparent; border:none; outline:none; font-family:inherit; font-size:14px; letter-spacing:-0.02em; color:#1D1D1D;" />
+          </div>
+          <button onClick="{{ extractBrand }}" style="cursor:pointer; border:none; background:#FF5B10; color:#fff; font-family:inherit; font-weight:600; font-size:14px; padding:11px 22px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Extract
+          </button>
+          <sc-if value="{{ isThemed }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ revertBrand }}" style="cursor:pointer; background:#fff; border:1px solid #E0D9CF; color:#1D1D1D; font-family:inherit; font-weight:600; font-size:14px; padding:11px 20px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg> Revert to Magic Lantern
+            </button>
+          </sc-if>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:14px; flex-wrap:wrap;">
+          <span style="font-size:12px; color:#A5A3A4;">Try:</span>
+          <sc-for list="{{ urlSuggestions }}" as="u" hint-placeholder-count="3">
+            <button onClick="{{ u.onClick }}" style="cursor:pointer; background:#F6F2EF; border:1px solid #E0D9CF; color:#565657; font-family:inherit; font-size:13px; font-weight:500; padding:6px 13px; border-radius:9999px;">{{ u.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="margin-top:34px; display:flex; align-items:center; gap:10px;"><h3 style="margin:0; font-size:18px; font-weight:600;">Logos</h3><span style="font-size:13px; color:#A5A3A4;">{{ logoCaption }}</span></div>
+      <div style="margin-top:14px; display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:16px;">
+        <sc-for list="{{ logoTiles }}" as="g" hint-placeholder-count="4">
+          <div style="{{ g.tileStyle }}">
+            <sc-if value="{{ g.isMark }}" hint-placeholder-val="{{ true }}"><img src="{{ g.src }}" alt="" style="width:42%;" /></sc-if>
+            <sc-if value="{{ g.isInitial }}"><span style="{{ g.initialStyle }}">{{ g.initial }}</span></sc-if>
+          </div>
+        </sc-for>
+        <div style="background:#fff; border:1.5px dashed #C1BFC3; border-radius:16px; aspect-ratio:1; display:flex; flex-direction:column; gap:6px; align-items:center; justify-content:center; color:#A5A3A4; font-size:13px; cursor:pointer;"><span style="font-size:24px; font-weight:300;">+</span>Upload</div>
+      </div>
+
+      <div style="margin-top:36px; display:flex; align-items:center; gap:10px;"><h3 style="margin:0; font-size:18px; font-weight:600;">Colors</h3><span style="font-size:13px; color:#A5A3A4;">{{ colorCaption }}</span></div>
+      <div style="margin-top:14px; display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:16px;">
+        <sc-for list="{{ swatches }}" as="sw" hint-placeholder-count="6">
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:14px; overflow:hidden;">
+          <div style="height:78px; background:{{ sw.hex }}; border-bottom:1px solid rgba(0,0,0,0.06);"></div>
+          <div style="padding:11px 13px;">
+            <div style="font-size:14px; font-weight:600;">{{ sw.name }}</div>
+            <div style="font-size:12px; color:#969496; font-family:'Poppins'; margin-top:2px;">{{ sw.hex }}</div>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:36px;"><h3 style="margin:0; font-size:18px; font-weight:600;">Typography</h3></div>
+      <div style="margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:22px 24px;">
+          <div style="font-size:12px; color:#A5A3A4; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;">Display · UI · Body</div>
+          <div style="font-size:46px; font-weight:600; letter-spacing:-0.04em; margin-top:8px;">{{ fontName }}</div>
+          <div style="font-size:14px; color:#6D6B6B; margin-top:8px;">{{ fontNote }}</div>
+        </div>
+        <div style="background:#1D1D1D; color:#fff; border:1px solid #1D1D1D; border-radius:16px; padding:22px 24px;">
+          <div style="font-size:12px; color:#9A9DA1; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;">Wordmark</div>
+          <sc-if value="{{ showWordmark }}" hint-placeholder-val="{{ true }}"><div style="font-family:'iBrands Ligature',serif; font-size:46px; letter-spacing:-0.08em; margin-top:8px;">magic lantern</div></sc-if>
+          <sc-if value="{{ showBrandWord }}"><div style="font-size:46px; font-weight:700; letter-spacing:-0.05em; margin-top:8px; color:{{ accent }};">{{ brandName }}</div></sc-if>
+          <div style="font-size:14px; color:#B5B8BC; margin-top:8px;">{{ wordmarkNote }}</div>
+        </div>
+      </div>
+
+      <!-- EXTRACTION OVERLAY -->
+      <sc-if value="{{ extracting }}">
+      <div style="position:absolute; inset:0; z-index:30; background:rgba(246,242,239,0.78); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center; animation:biaFade 200ms ease both;">
+        <div style="width:420px; max-width:88%; background:#fff; border:1px solid #E0D9CF; border-radius:22px; box-shadow:0 30px 80px rgba(0,0,0,0.18); padding:28px 30px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:#FF5B10; display:flex; align-items:center; justify-content:center; flex:none; animation:biaPulse 1.4s infinite;"><img src="assets/mark-white.svg" style="width:54%;height:54%;" /></div>
+            <div>
+              <div style="font-size:16px; font-weight:600;">Reading {{ extractHost }}</div>
+              <div style="font-size:13px; color:#969496;">Bia is extracting the brand kit…</div>
+            </div>
+          </div>
+          <div style="margin-top:20px; display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ extractSteps }}" as="es" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:10px; font-size:14px; color:{{ es.color }};">
+                <span style="{{ es.dotStyle }}"></span>{{ es.label }}
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:18px; height:8px; border-radius:6px; overflow:hidden; background:#F3EEEB;">
+            <div style="{{ extractBarStyle }}"></div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- BRAND VOICE -->
+    <sc-if value="{{ atBrandvoice }}">
+    <div style="flex:1; overflow-y:auto; padding:34px 40px 60px;">
+      <h1 style="margin:0; font-size:40px; font-weight:600; letter-spacing:-0.04em;">Brand voice</h1>
+      <div style="color:#6D6B6B; font-size:15px; margin-top:6px; max-width:560px;">Bia writes captions, alt text, and replies in this voice. Confident, warm, a little cinematic — never breathless AI-hype.</div>
+
+      <div style="margin-top:28px; display:flex; gap:10px; flex-wrap:wrap;">
+        <span style="background:#FFE9DF; color:#FF5B10; font-size:14px; font-weight:600; padding:9px 16px; border-radius:9999px;">Warm</span>
+        <span style="background:#FFE9DF; color:#FF5B10; font-size:14px; font-weight:600; padding:9px 16px; border-radius:9999px;">Confident</span>
+        <span style="background:#FFE9DF; color:#FF5B10; font-size:14px; font-weight:600; padding:9px 16px; border-radius:9999px;">Plainspoken</span>
+        <span style="background:#FFE9DF; color:#FF5B10; font-size:14px; font-weight:600; padding:9px 16px; border-radius:9999px;">Cinematic</span>
+      </div>
+
+      <div style="margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:22px 24px;">
+          <div style="font-size:13px; font-weight:700; color:#2BAC76; text-transform:uppercase; letter-spacing:0.06em;">Do</div>
+          <div style="margin-top:12px; display:flex; flex-direction:column; gap:12px; font-size:15px; color:#1D1D1D; line-height:1.4;">
+            <div>"Direct the shot. Light the scene. Render it."</div>
+            <div>"35mm grain, scanned at 4K."</div>
+            <div>Lead with the verb. One idea per line.</div>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:22px 24px;">
+          <div style="font-size:13px; font-weight:700; color:#C1452F; text-transform:uppercase; letter-spacing:0.06em;">Don't</div>
+          <div style="margin-top:12px; display:flex; flex-direction:column; gap:12px; font-size:15px; color:#969496; line-height:1.4;">
+            <div style="text-decoration:line-through;">"Unleash the power of AI filmmaking."</div>
+            <div style="text-decoration:line-through;">"Premium cinematic quality at scale."</div>
+            <div style="text-decoration:line-through;">Exclamation points. Ever.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:30px; background:#1D1D1D; color:#fff; border-radius:20px; padding:34px 38px;">
+        <div style="font-size:12px; color:#9A9DA1; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;">Signature phrase</div>
+        <div style="font-size:27px; font-weight:500; letter-spacing:-0.03em; line-height:1.35; margin-top:14px; max-width:760px;">Let's embrace the realness of creation — the grain, the bloom, the imperfect edges of a scene.</div>
+      </div>
+
+      <div style="margin-top:30px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:20px 22px;">
+          <div style="display:flex; justify-content:space-between; font-size:13px; color:#969496;"><span>Formal</span><span>Casual</span></div>
+          <div style="height:6px; background:#F3EEEB; border-radius:9999px; margin-top:10px; position:relative;"><div style="position:absolute; left:62%; top:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:#FF5B10;"></div></div>
+        </div>
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:20px 22px;">
+          <div style="display:flex; justify-content:space-between; font-size:13px; color:#969496;"><span>Plain</span><span>Poetic</span></div>
+          <div style="height:6px; background:#F3EEEB; border-radius:9999px; margin-top:10px; position:relative;"><div style="position:absolute; left:54%; top:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:#FF5B10;"></div></div>
+        </div>
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:20px 22px;">
+          <div style="display:flex; justify-content:space-between; font-size:13px; color:#969496;"><span>Reserved</span><span>Bold</span></div>
+          <div style="height:6px; background:#F3EEEB; border-radius:9999px; margin-top:10px; position:relative;"><div style="position:absolute; left:70%; top:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:#FF5B10;"></div></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- TEAM -->
+    <sc-if value="{{ atTeam }}">
+    <div style="flex:1; overflow-y:auto; padding:34px 40px 60px;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+        <div>
+          <h1 style="margin:0; font-size:40px; font-weight:600; letter-spacing:-0.04em;">Team &amp; access</h1>
+          <div style="color:#6D6B6B; font-size:15px; margin-top:6px;">Control who can invoke Bia, and what each person can do with assets.</div>
+        </div>
+        <button style="cursor:pointer; background:#1D1D1D; border:none; color:#fff; font-family:inherit; font-weight:600; font-size:14px; padding:11px 18px; border-radius:9999px;">Invite people</button>
+      </div>
+
+      <div style="margin-top:26px; background:#fff; border:1px solid #E0D9CF; border-radius:18px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:2.2fr 1.3fr 1fr 0.9fr; padding:14px 22px; border-bottom:1px solid #E0D9CF; font-size:12px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:#A5A3A4;">
+          <div>Member</div><div>Role</div><div>Bia access</div><div>Last active</div>
+        </div>
+        <sc-for list="{{ team }}" as="t" hint-placeholder-count="5">
+        <div style="display:grid; grid-template-columns:2.2fr 1.3fr 1fr 0.9fr; align-items:center; padding:14px 22px; border-bottom:1px solid #F3EEEB;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:36px; height:36px; border-radius:50%; background:{{ t.bg }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; flex:none;">{{ t.initials }}</div>
+            <div style="line-height:1.15; min-width:0;"><div style="font-size:14px; font-weight:600;">{{ t.name }}</div><div style="font-size:12px; color:#969496;">{{ t.email }}</div></div>
+          </div>
+          <div><span style="font-size:13px; font-weight:500; color:#1D1D1D; border:1px solid #E0D9CF; border-radius:9999px; padding:6px 13px; display:inline-flex; align-items:center; gap:6px;">{{ t.role }} <span style="color:#A5A3A4; font-size:10px;">▾</span></span></div>
+          <div><span style="font-size:12px; font-weight:600; padding:5px 11px; border-radius:9999px; background:{{ t.biaBg }}; color:{{ t.biaFg }};">{{ t.bia }}</span></div>
+          <div style="font-size:13px; color:#969496;">{{ t.active }}</div>
+        </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:22px 24px;">
+          <div style="font-size:16px; font-weight:600;">Bia permissions</div>
+          <div style="margin-top:14px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:14px;">Listens in #design, #marketing</span><span style="width:40px; height:23px; border-radius:9999px; background:#FF5B10; position:relative;"><span style="position:absolute; top:2.5px; right:2.5px; width:18px; height:18px; border-radius:50%; background:#fff;"></span></span></div>
+            <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:14px;">Anyone can invoke Bia</span><span style="width:40px; height:23px; border-radius:9999px; background:#FF5B10; position:relative;"><span style="position:absolute; top:2.5px; right:2.5px; width:18px; height:18px; border-radius:50%; background:#fff;"></span></span></div>
+            <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:14px;">Brand-lock — block off-brand exports</span><span style="width:40px; height:23px; border-radius:9999px; background:#FF5B10; position:relative;"><span style="position:absolute; top:2.5px; right:2.5px; width:18px; height:18px; border-radius:50%; background:#fff;"></span></span></div>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid #E0D9CF; border-radius:16px; padding:22px 24px;">
+          <div style="font-size:16px; font-weight:600;">Roles</div>
+          <div style="margin-top:14px; display:flex; flex-direction:column; gap:11px; font-size:14px; color:#565657;">
+            <div><b style="color:#1D1D1D;">Admin</b> — manage brand kit, voice, and people.</div>
+            <div><b style="color:#1D1D1D;">Editor</b> — create with Bia, edit and approve assets.</div>
+            <div><b style="color:#1D1D1D;">Reviewer</b> — comment and request Bia edits.</div>
+            <div><b style="color:#1D1D1D;">Viewer</b> — view and download approved assets.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- SHARE MODAL -->
+    <sc-if value="{{ showShare }}">
+    <div onClick="{{ closeShare }}" style="position:absolute; inset:0; background:rgba(20,20,20,0.45); z-index:40; display:flex; align-items:center; justify-content:center; animation:biaFade 160ms ease both;">
+      <div onClick="{{ stop }}" style="width:520px; max-width:92%; background:#fff; border-radius:22px; box-shadow:0 30px 80px rgba(0,0,0,0.3); overflow:hidden;">
+        <div style="padding:24px 26px 0;">
+          <div style="font-size:20px; font-weight:600;">Share “Welcome — Maya Chen”</div>
+          <div style="display:flex; gap:10px; margin-top:18px;">
+            <div style="flex:1; border:1px solid #E0D9CF; border-radius:9999px; padding:11px 16px; color:#A5A3A4; font-size:14px;">Add people or teams…</div>
+            <span style="border:1px solid #E0D9CF; border-radius:9999px; padding:11px 14px; font-size:13px; font-weight:500; color:#565657;">Can comment ▾</span>
+            <button style="cursor:pointer; background:#FF5B10; border:none; color:#fff; font-family:inherit; font-weight:600; font-size:14px; padding:11px 18px; border-radius:9999px;">Invite</button>
+          </div>
+        </div>
+        <div style="padding:18px 26px 8px; display:flex; flex-direction:column; gap:4px;">
+          <sc-for list="{{ shareList }}" as="p" hint-placeholder-count="4">
+          <div style="display:flex; align-items:center; gap:12px; padding:9px 0;">
+            <sc-if value="{{ p.isBia }}" hint-placeholder-val="{{ true }}"><div style="width:34px; height:34px; border-radius:50%; background:#FF5B10; display:flex; align-items:center; justify-content:center; flex:none;"><img src="assets/mark-white.svg" style="width:54%;height:54%;" /></div></sc-if>
+            <sc-if value="{{ p.isPerson }}"><div style="width:34px; height:34px; border-radius:50%; background:{{ p.bg }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; flex:none;">{{ p.initials }}</div></sc-if>
+            <div style="line-height:1.15; min-width:0; flex:1;"><div style="font-size:14px; font-weight:600;">{{ p.name }}</div><div style="font-size:12px; color:#969496;">{{ p.sub }}</div></div>
+            <span style="font-size:13px; font-weight:500; color:#565657;">{{ p.role }}</span>
+          </div>
+          </sc-for>
+        </div>
+        <div style="margin:8px 26px 0; padding:16px 0; border-top:1px solid #F3EEEB; display:flex; align-items:center; gap:12px;">
+          <div style="width:34px; height:34px; border-radius:50%; background:#F3EEEB; display:flex; align-items:center; justify-content:center; flex:none;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#565657" stroke-width="1.7"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+          </div>
+          <div style="line-height:1.15; flex:1;"><div style="font-size:14px; font-weight:600;">Anyone with the link</div><div style="font-size:12px; color:#969496;">Can comment · expires in 30 days</div></div>
+          <button onClick="{{ copyLink }}" style="cursor:pointer; background:#1D1D1D; border:none; color:#fff; font-family:inherit; font-weight:600; font-size:13px; padding:9px 16px; border-radius:9999px;">Copy link</button>
+        </div>
+        <div style="padding:8px 26px 24px; display:flex; justify-content:flex-end;">
+          <button onClick="{{ closeShare }}" style="cursor:pointer; background:transparent; border:1px solid #E0D9CF; color:#1D1D1D; font-family:inherit; font-weight:600; font-size:14px; padding:10px 22px; border-radius:9999px;">Done</button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ TOAST ============ -->
+<sc-if value="{{ hasToast }}">
+<div style="position:fixed; bottom:80px; left:50%; transform:translateX(-50%); z-index:60; background:#1D1D1D; color:#fff; font-size:14px; font-weight:500; padding:13px 20px; border-radius:9999px; box-shadow:0 14px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:10px; animation:biaFade 220ms ease both;">
+  <span style="width:20px; height:20px; border-radius:50%; background:#FF5B10; display:inline-flex; align-items:center; justify-content:center;"><img src="assets/mark-white.svg" style="width:58%;height:58%;" /></span>
+  {{ toast }}
+</div>
+</sc-if>
+
+<!-- ============ SURFACE SWITCHER (docked in sidebars) ============ -->
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this._n = 0;
+    this.timers = [];
+    this.stageRef = React.createRef();
+    this.fileRef = React.createRef();
+    this.convRef = React.createRef();
+    this.DEFAULT_THEME = {
+      id:"default", brand:"Magic Lantern", cardBrand:"magic lantern", wordmark:true,
+      accent:"#FF5B10", accentText:"#000000", accentSoft:"#FFE9DF",
+      surface:"#F6F2EF", ink:"#000000", muted:"#565657",
+      font:"Poppins", fontNote:"Medium 500 is the default. Tight tracking everywhere. Aa Bb Cc 1234567890",
+      wordmarkNote:"iBrands Ligature — reserved exclusively for the wordmark.", sourceUrl:null,
+      palette:[ {name:"Lantern Orange",hex:"#FF5B10"},{name:"Black",hex:"#000000"},{name:"Obsidian",hex:"#1D1D1D"},
+        {name:"Stone",hex:"#F6F2EF"},{name:"Stone 300",hex:"#E0D9CF"},{name:"Ember",hex:"#FFE9DF"} ],
+      colorCaption:"Lead with orange · warm neutrals"
+    };
+    this.PRESETS = {
+      "stripe.com":{ id:"stripe", brand:"Stripe", cardBrand:"Stripe", wordmark:false,
+        accent:"#635BFF", accentText:"#FFFFFF", accentSoft:"#ECEBFF", surface:"#FFFFFF", ink:"#0A2540", muted:"#425466",
+        font:"Söhne", fontNote:"Clean grotesque. Tight, neutral, engineered. Aa Bb Cc 1234567890",
+        wordmarkNote:"Set in the brand sans, all caps avoided.", colorCaption:"Indigo lead · cool neutrals",
+        palette:[ {name:"Indigo",hex:"#635BFF"},{name:"Ink",hex:"#0A2540"},{name:"Sky",hex:"#00D4FF"},
+          {name:"Slate",hex:"#425466"},{name:"Cloud",hex:"#F6F9FC"},{name:"Line",hex:"#E3E8EE"} ] },
+      "linear.app":{ id:"linear", brand:"Linear", cardBrand:"Linear", wordmark:false,
+        accent:"#5E6AD2", accentText:"#FFFFFF", accentSoft:"#ECEDFB", surface:"#FFFFFF", ink:"#08090A", muted:"#6B6F76",
+        font:"Inter", fontNote:"Precise UI sans. High legibility at small sizes. Aa Bb Cc 1234567890",
+        wordmarkNote:"Lowercase, tight tracking, brand indigo.", colorCaption:"Indigo lead · graphite neutrals",
+        palette:[ {name:"Indigo",hex:"#5E6AD2"},{name:"Near-black",hex:"#08090A"},{name:"Violet",hex:"#7170FF"},
+          {name:"Mercury",hex:"#E6E6E6"},{name:"Smoke",hex:"#F4F5F8"},{name:"Snow",hex:"#FFFFFF"} ] },
+      "spotify.com":{ id:"spotify", brand:"Spotify", cardBrand:"Spotify", wordmark:false,
+        accent:"#1DB954", accentText:"#000000", accentSoft:"#D8F5E3", surface:"#FFFFFF", ink:"#121212", muted:"#535353",
+        font:"Circular", fontNote:"Geometric, friendly, rounded. Aa Bb Cc 1234567890",
+        wordmarkNote:"Bold, tight, brand green.", colorCaption:"Green lead · blackout neutrals",
+        palette:[ {name:"Green",hex:"#1DB954"},{name:"Black",hex:"#121212"},{name:"Bright Green",hex:"#1ED760"},
+          {name:"Ash",hex:"#535353"},{name:"Smoke",hex:"#B3B3B3"},{name:"White",hex:"#FFFFFF"} ] }
+    };
+    this.GENERIC_POOL = ["#3B82F6","#10B981","#8B5CF6","#EF4444","#F59E0B","#EC4899","#14B8A6","#6366F1"];
+    this.scriptTurns = [
+      { text:"Love it — a welcome card. Who are we welcoming, and which team are they joining?", sugg:["Maya Chen, joining Design","Someone else"] },
+      { text:"Maya Chen, Design — nice. What should it feel like? I can go warm and editorial, or bold and graphic.", sugg:["Warm & editorial","Bold & graphic"] },
+      { text:"On it. I'll use your brand kit — Stone ground, Lantern Orange accent, Poppins Medium — and render a 1200×630 welcome card.", sugg:[], card:true }
+    ];
+    this.state = {
+      surface:"slack", webView:"library", selectedAsset:"welcome",
+      msgs:[ { id:"m_init", role:"bia", kind:"text", time:"9:31 AM",
+        text:"Hi Sana. I'm Bia — your design partner, right here in Slack. Tell me what you need and I'll draft it on-brand, straight from your brand kit. What are we making?" } ],
+      step:0, typing:false, composer:"",
+      suggestions:["A welcome image for a new hire","An Instagram post","Recolor our logo"],
+      version:1, regenerating:false, justUpdated:false,
+      pendingPin:null, cDraft:"", tagBia:true, activeComment:"c1",
+      comments:[ { id:"c1", num:1, author:"Devin Rao", initials:"DR", avatarBg:"#1D1D1D", time:"9:42 AM",
+        text:"Type hierarchy looks great. It feels a touch quiet, though — can we make it more premium and on-brand?",
+        tagsBia:false, x:30, y:38, resolved:false,
+        replies:[ { id:"r1", isBia:true, working:false, time:"9:43 AM",
+          text:"I can lift the contrast and try our Lantern Orange as the ground. Drop a comment and tag me to apply it." } ] } ],
+      showShare:false, toast:null,
+      zoom:1, panX:0, panY:0,
+      theme:this.DEFAULT_THEME, urlInput:"", extracting:false, extractHost:"",
+      uploads:[], dragging:false,
+      cardReady:false, slackV:1
+    };
+    this.editChips=["Make it bold — orange ground","Soften it — warm & light","More contrast on the type"];
+  }
+  metaFor(v){ return "1200×630 · PNG · Brand kit: "+this.state.theme.brand+" · v"+v; }
+  pickFiles(){ if(this.fileRef.current) this.fileRef.current.click(); }
+  onFiles(e){ this.addFiles(e.target.files); e.target.value=""; }
+  addFiles(list){
+    const files=Array.from(list||[]); if(!files.length) return;
+    const ups=files.map(f=>{
+      const t=f.type||""; let kind="doc";
+      if(t.indexOf("image/")===0) kind="image"; else if(t.indexOf("video/")===0) kind="video";
+      const mb=f.size/1048576; const szL=mb>=1?mb.toFixed(1)+" MB":Math.max(1,Math.round(f.size/1024))+" KB";
+      let url=null; try{ url=URL.createObjectURL(f); }catch(e){}
+      return { id:"up"+(++this._n), name:f.name, kind, url,
+        typeLabel:(kind==="image"?"Image":kind==="video"?"Video":"PDF")+" · "+szL };
+    });
+    this.setState(s=>({ uploads:[...ups,...s.uploads], dragging:false }));
+    this.toast(files.length+" file"+(files.length>1?"s":"")+" uploaded · Bia is tagging to your brand kit");
+  }
+  onDragOver(e){ e.preventDefault(); if(!this.state.dragging) this.setState({dragging:true}); }
+  onDragLeave(e){ if(e.currentTarget===e.target) this.setState({dragging:false}); }
+  onDrop(e){ e.preventDefault(); this.addFiles(e.dataTransfer&&e.dataTransfer.files); }
+  resolveTheme(url){
+    const u=(url||"").toLowerCase().trim();
+    if(!u) return null;
+    const host=u.replace(/^https?:\/\//,"").replace(/^www\./,"").split(/[\/?#]/)[0];
+    if(!host) return null;
+    for(const key in this.PRESETS){ if(host.includes(key.split(".")[0])) return {...this.PRESETS[key], sourceUrl:host}; }
+    const name=host.split(".")[0]; const brand=name.charAt(0).toUpperCase()+name.slice(1);
+    let h=0; for(let i=0;i<host.length;i++) h=(h*31+host.charCodeAt(i))>>>0;
+    const accent=this.GENERIC_POOL[h%this.GENERIC_POOL.length];
+    return { id:"generic", brand, cardBrand:brand, wordmark:false,
+      accent, accentText:"#FFFFFF", accentSoft:this.hexA(accent,0.12), surface:"#FFFFFF", ink:"#14161A", muted:"#5A6068",
+      font:"Inter", fontNote:"Closest match to "+brand+"'s site type. Aa Bb Cc 1234567890",
+      wordmarkNote:"Detected wordmark, set in brand color.", colorCaption:"Extracted from "+host,
+      palette:[ {name:"Primary",hex:accent},{name:"Ink",hex:"#14161A"},{name:"Accent 2",hex:this.GENERIC_POOL[(h+3)%this.GENERIC_POOL.length]},
+        {name:"Slate",hex:"#5A6068"},{name:"Mist",hex:"#F3F4F6"},{name:"White",hex:"#FFFFFF"} ], sourceUrl:host };
+  }
+  hexA(hex,a){ try{ let h=(hex||"#000").replace("#",""); if(h.length===3) h=h.split("").map(c=>c+c).join(""); const n=parseInt(h,16); return "rgba("+((n>>16)&255)+","+((n>>8)&255)+","+(n&255)+","+a+")"; }catch(e){ return hex; } }
+  setUrl(v){ this.setState({urlInput:v}); }
+  extractBrand(){
+    const t=this.resolveTheme(this.state.urlInput);
+    if(!t){ this.toast("Enter a website URL to extract from"); return; }
+    if(this.state.extracting) return;
+    this.setState({extracting:true, extractHost:t.sourceUrl});
+    this.later(()=>{
+      this.setState({theme:t, extracting:false});
+      this.toast("Brand kit updated from "+t.sourceUrl+" · library re-skinned");
+    },2300);
+  }
+  revertBrand(){
+    this.setState({theme:this.DEFAULT_THEME, urlInput:""});
+    this.toast("Reverted to the Magic Lantern brand kit");
+  }
+  componentDidMount(){
+    this._wheel=(e)=>{
+      if(this.state.surface!=="web"||this.state.webView!=="review") return;
+      const st=this.stageRef.current; if(!st||!st.contains(e.target)) return;
+      e.preventDefault();
+      const r=st.getBoundingClientRect();
+      const px=e.clientX-r.left, py=e.clientY-r.top;
+      if(e.ctrlKey){ this.zoomAt(px,py,Math.exp(-e.deltaY*0.01)); }
+      else { this.setState(s=>({panX:s.panX-e.deltaX, panY:s.panY-e.deltaY})); }
+    };
+    document.addEventListener("wheel",this._wheel,{passive:false});
+  }
+  componentWillUnmount(){ this.timers.forEach(clearTimeout); if(this._wheel) document.removeEventListener("wheel",this._wheel); }
+  zoomAt(px,py,factor){
+    const z=this.state.zoom; const nz=Math.max(0.3,Math.min(5,z*factor)); const ratio=nz/z;
+    this.setState(s=>({ zoom:nz, panX:px-(px-s.panX)*ratio, panY:py-(py-s.panY)*ratio }));
+  }
+  zoomBtn(factor){ const st=this.stageRef.current; if(!st) return; const r=st.getBoundingClientRect(); this.zoomAt(r.width/2,r.height/2,factor); }
+  fitView(){ this.setState({zoom:1,panX:0,panY:0}); }
+  onStageDown(e){
+    this._pan={sx:e.clientX,sy:e.clientY,px:this.state.panX,py:this.state.panY,moved:false};
+    const move=(ev)=>{ const dx=ev.clientX-this._pan.sx, dy=ev.clientY-this._pan.sy; if(Math.abs(dx)+Math.abs(dy)>4) this._pan.moved=true; this.setState({panX:this._pan.px+dx, panY:this._pan.py+dy}); };
+    const up=()=>{ document.removeEventListener("mousemove",move); document.removeEventListener("mouseup",up); this._didPan=this._pan.moved; };
+    document.addEventListener("mousemove",move); document.addEventListener("mouseup",up);
+  }
+  scrollConv(){ const go=()=>{ const el=document.getElementById("bia-conv"); if(el) el.scrollTop=el.scrollHeight; }; [60,200,420,750,1200,1700].forEach(ms=>this.later(go,ms)); }
+  later(fn,ms){ const t=setTimeout(fn,ms); this.timers.push(t); return t; }
+  uid(){ this._n++; return "id"+this._n; }
+  now(){ const d=new Date(); let h=d.getHours(); const m=d.getMinutes(); const ap=h<12?"AM":"PM"; h=h%12; if(h===0)h=12; return h+":"+(m<10?"0":"")+m+" "+ap; }
+  toast(text){ this.setState({toast:text}); this.later(()=>this.setState(s=>(s.toast===text?{toast:null}:{})),2800); }
+
+  // slack flow
+  send(text){ text=(text||"").trim(); if(!text) return;
+    const editing=this.state.cardReady && !this.scriptTurns[this.state.step];
+    this.setState(s=>({ msgs:[...s.msgs,{id:this.uid(),role:"user",kind:"text",text,time:this.now()}], composer:"", suggestions:[], typing:true }));
+    this.scrollConv();
+    this.later(()=> editing ? this.editCard(text) : this.advance(), editing?900:1200);
+  }
+  pick(label){ this.send(label); }
+  sendSlack(){ this.send(this.state.composer); }
+  advance(){
+    const turn=this.scriptTurns[this.state.step];
+    if(!turn){ this.setState({typing:false}); return; }
+    this.setState(s=>({ typing:false, suggestions:turn.sugg||[], step:s.step+1,
+      msgs:[...s.msgs,{id:this.uid(),role:"bia",kind:"text",text:turn.text,time:this.now()}] }));
+    this.scrollConv();
+    if(turn.card){
+      this.later(()=>{
+        this.setState(s=>({ msgs:[...s.msgs,{id:"gen",role:"bia",kind:"generating",genLabel:"Rendering welcome card — pulling brand kit…",time:this.now()}] }));
+        this.scrollConv();
+        this.later(()=>{
+          this.setState(s=>({ cardReady:true, slackV:1, version:1, suggestions:this.editChips,
+            msgs:s.msgs.filter(m=>m.id!=="gen").concat([
+            {id:this.uid(),role:"bia",kind:"card",cardVersion:1,cardMeta:this.metaFor(1),isEdit:false,time:this.now()},
+            {id:this.uid(),role:"bia",kind:"text",time:this.now(),
+              text:"Here's v1 — a warm welcome card for Maya, built from your brand kit.\nWant changes? Just tell me right here — \"make it bolder,\" \"use our orange,\" anything — and I'll regenerate it. Or open it in Bia to comment."}
+          ]) }));
+          this.scrollConv();
+        },2100);
+      },500);
+    }
+  }
+  editCard(text){
+    const t=(text||"").toLowerCase();
+    const cur=this.state.slackV;
+    let nv;
+    if(/bold|orange|pop|vibrant|punch|loud|ground|strong|striking|brand colou?r/.test(t)) nv=2;
+    else if(/soft|warm|light|calm|subtle|muted|gentle|quiet|minimal/.test(t)) nv=1;
+    else nv = cur===1?2:1;
+    const accentName=(this.state.theme.palette[0]&&this.state.theme.palette[0].name)||"Lantern Orange";
+    const reply = nv===2
+      ? "Done — flipped the ground to "+accentName+" and set the mark in white for contrast. Saved as v"+nv+", and mirrored it to the review tool."
+      : "Done — eased it back to the warm Stone layout with a single "+accentName+" accent. Saved as v"+nv+", and mirrored it to the review tool.";
+    this.setState(s=>({ typing:false, msgs:[...s.msgs,{id:"gen2",role:"bia",kind:"generating",genLabel:"Editing the welcome card — applying your changes…",time:this.now()}] }));
+    this.scrollConv();
+    this.later(()=>{
+      this.setState(s=>({ slackV:nv, version:nv, suggestions:this.editChips,
+        msgs:s.msgs.filter(m=>m.id!=="gen2").concat([
+          {id:this.uid(),role:"bia",kind:"card",cardVersion:nv,cardMeta:this.metaFor(nv),isEdit:true,time:this.now()},
+          {id:this.uid(),role:"bia",kind:"text",time:this.now(),text:reply}
+        ]) }));
+      this.scrollConv();
+    },1900);
+  }
+
+  // navigation
+  goReview(){ this.setState({surface:"web",webView:"review",selectedAsset:"welcome",zoom:1,panX:0,panY:0}); }
+  goSlack(){ this.setState({surface:"slack",showShare:false}); }
+  goWeb(){ this.setState({surface:"web",showShare:false}); }
+  goLibrary(){ this.setState({webView:"library",showShare:false}); }
+  navTo(v){ this.setState({webView:v,showShare:false}); }
+  openAsset(id){ if(id==="welcome"){ this.setState({surface:"web",webView:"review",selectedAsset:"welcome",zoom:1,panX:0,panY:0}); } else { this.toast("This is a demo — the Maya welcome card is the wired example"); } }
+  postChannel(){ this.toast("Posted to #design"); }
+  regenSlack(){ if(this.state.cardReady){ this.setState(s=>({ msgs:[...s.msgs,{id:this.uid(),role:"user",kind:"text",text:"Regenerate it",time:this.now()}], typing:true })); this.later(()=>this.editCard("regenerate"),900); } }
+  approve(){ this.toast("Asset approved"); }
+  openShare(){ this.setState({showShare:true}); }
+  closeShare(){ this.setState({showShare:false}); }
+  stop(e){ if(e&&e.stopPropagation) e.stopPropagation(); }
+  copyLink(){ this.toast("Link copied to clipboard"); }
+  setVersion(v){ this.setState({version:v}); }
+
+  // review interactions
+  onStageClick(e){ if(this._didPan){ this._didPan=false; return; } if(this.state.regenerating) return;
+    const r=e.currentTarget.getBoundingClientRect();
+    const x=Math.max(5,Math.min(95,((e.clientX-r.left)/r.width)*100));
+    const y=Math.max(7,Math.min(93,((e.clientY-r.top)/r.height)*100));
+    this.setState({pendingPin:{x:Math.round(x),y:Math.round(y)},cDraft:"",tagBia:true});
+  }
+  cancelPin(){ this.setState({pendingPin:null,cDraft:""}); }
+  toggleTag(){ this.setState(s=>({tagBia:!s.tagBia})); }
+  quickFill(){ this.setState({cDraft:"@Bia change the background to our Lantern Orange and make it pop",tagBia:true}); }
+  resolveComment(id){ this.setState(s=>({comments:s.comments.map(c=>c.id===id?{...c,resolved:!c.resolved}:c)})); }
+  postComment(){
+    const text=(this.state.cDraft||"").trim(); if(!text||!this.state.pendingPin) return;
+    const tags=this.state.tagBia || /@bia/i.test(text);
+    const id=this.uid();
+    const c={ id, num:this.state.comments.length+1, author:"Sana Okafor", initials:"SO", avatarBg:"#0019FF",
+      time:this.now(), text, tagsBia:tags, x:this.state.pendingPin.x, y:this.state.pendingPin.y, resolved:false,
+      replies: tags?[{id:this.uid(),isBia:true,working:true,time:this.now(),text:"On it — regenerating now…"}]:[] };
+    this.setState(s=>({ comments:[...s.comments,c], pendingPin:null, cDraft:"", activeComment:id }));
+    if(tags){
+      this.setState({regenerating:true});
+      this.later(()=>{
+        this.setState(s=>({ version:2, regenerating:false, justUpdated:true,
+          comments:s.comments.map(cc=>cc.id===id?{...cc,replies:[{id:this.uid(),isBia:true,working:false,time:this.now(),
+            text:"Done. I swapped the ground to Lantern Orange and flipped the mark to white for contrast — saved as v2 and mirrored it back to #design."}]}:cc) }));
+        this.toast("Bia updated this asset · now showing v2");
+        this.later(()=>this.setState({justUpdated:false}),1600);
+      },2300);
+    }
+  }
+
+  res(k,p){ try{ return (window.__resources&&window.__resources[k])||p; }catch(e){ return p; } }
+  renderVals(){
+    const s=this.state;
+    const th=s.theme;
+    const isThemed=th.id!=="default";
+    const R=(k,p)=>this.res(k,p);
+    const msgs=s.msgs.map(m=>({ ...m,
+      isUser:m.role==="user", isBia:m.role==="bia",
+      isText:m.kind==="text", isGenerating:m.kind==="generating", isCard:m.kind==="card",
+      genLabel:m.genLabel||"Working…", cardVersion:m.cardVersion||1, cardMeta:m.cardMeta||"", isEdit:!!m.isEdit,
+      author:m.role==="user"?"Sana Okafor":"Bia" }));
+    const suggestions=s.suggestions.map(x=>({label:x,onClick:()=>this.pick(x)}));
+
+    const comments=s.comments.map(c=>({ ...c,
+      pinBg:c.author==="Sana Okafor"?"#FF5B10":"#1D1D1D",
+      avatarBg:c.avatarBg,
+      borderColor:c.id===s.activeComment?"#FF5B10":"#E0D9CF",
+      cardBg:c.resolved?"#F6F2EF":"#fff",
+      resolveLabel:c.resolved?"Resolved":"Resolve",
+      resolveBg:c.resolved?"#1D1D1D":"#fff",
+      resolveFg:c.resolved?"#fff":"#565657",
+      resolveBorder:c.resolved?"#1D1D1D":"#E0D9CF",
+      onResolve:()=>this.resolveComment(c.id),
+      onFocus:(e)=>{ this.stop(e); this.setState({activeComment:c.id}); },
+      replies:(c.replies||[]).map(r=>({...r, done:!r.working})) }));
+    const resolvedCount=s.comments.filter(c=>c.resolved).length;
+
+    const uploadAssets=(s.uploads||[]).map(u=>({ id:u.id, name:u.name, typeLabel:u.typeLabel, meta:"You · now",
+      status:"New", statusBg:th.accentSoft, statusFg:th.accent,
+      isImage:u.kind==="image", isVideo:u.kind==="video", isDoc:u.kind==="doc",
+      img:u.kind==="image"?u.url:null, duration:u.kind==="video"?"0:00":undefined, pages:u.kind==="doc"?"1":undefined }));
+    const assets=[...uploadAssets,
+      {id:"welcome",name:"Welcome — Maya Chen",typeLabel:"Image · 1200×630",meta:"Bia · now",status:"Needs review",statusBg:th.accentSoft,statusFg:th.accent,isHero:true,version:s.version},
+      {id:"launch",name:"Launch teaser",typeLabel:"Video · 0:15",meta:"Devin · 2h",status:"In review",statusBg:"#F3EEEB",statusFg:"#565657",isVideo:true,duration:"0:15",img:R("fullFrame","assets/full-frame.png")},
+      {id:"ig",name:"Spring sale — IG post",typeLabel:"Image · 1080²",meta:"Sana · 1d",status:"Approved",statusBg:"#1D1D1D",statusFg:"#fff",isImage:true,img:R("heroGrain","assets/hero-grain.png")},
+      {id:"logopack",name:"Brand logo pack",typeLabel:"PDF · 6 pages",meta:"Bia · 2d",status:"Approved",statusBg:"#1D1D1D",statusFg:"#fff",isDoc:true,pages:6},
+      {id:"deck",name:"Q3 culture deck",typeLabel:"PDF · 24 pages",meta:"Maya · 3d",status:"In review",statusBg:"#F3EEEB",statusFg:"#565657",isDoc:true,pages:24},
+      {id:"banner",name:"Recruiting banner",typeLabel:"Image · 1584×396",meta:"Bia · 4d",status:"Needs review",statusBg:th.accentSoft,statusFg:th.accent,isImage:true,img:R("fullFrame","assets/full-frame.png")},
+      {id:"reel",name:"Product reel — hero",typeLabel:"Video · 0:42",meta:"Devin · 5d",status:"Draft",statusBg:"#F3EEEB",statusFg:"#969496",isVideo:true,duration:"0:42",img:R("heroGrain","assets/hero-grain.png")},
+      {id:"poster",name:"Studio reel poster",typeLabel:"Image · 2000×1125",meta:"Sana · 1w",status:"Approved",statusBg:"#1D1D1D",statusFg:"#fff",isImage:true,img:R("heroGrain","assets/hero-grain.png")}
+    ].map(a=>({...a, isImage:!!a.isImage&&!a.isHero, onOpen:()=>this.openAsset(a.id),
+      thumbStyle: a.img ? {position:"absolute",inset:0,width:"100%",height:"100%",backgroundImage:"url('"+a.img+"')",backgroundSize:"cover",backgroundPosition:"center",opacity:a.isVideo?0.82:1} : {}}));
+
+    const navWorkspace=[
+      {label:"Brand kit",view:"brandkit"},
+      {label:"Brand voice",view:"brandvoice"},
+      {label:"Team & access",view:"team"}
+    ].map(n=>({label:n.label, onClick:()=>this.navTo(n.view),
+      bg:s.webView===n.view?"#FFE9DF":"transparent",
+      color:s.webView===n.view?"#FF5B10":"#1D1D1D"}));
+
+    const swatches=th.palette;
+    const logoTiles = isThemed
+      ? [ {isInitial:true, initial:(th.brand[0]||"B").toUpperCase(), tileStyle:{background:th.accent,borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}, initialStyle:{fontSize:"40px",fontWeight:700,letterSpacing:"-0.04em",color:th.accentText}},
+          {isInitial:true, initial:(th.brand[0]||"B").toUpperCase(), tileStyle:{background:"#fff",border:"1px solid #E0D9CF",borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}, initialStyle:{fontSize:"40px",fontWeight:700,letterSpacing:"-0.04em",color:th.accent}},
+          {isInitial:true, initial:(th.brand[0]||"B").toUpperCase(), tileStyle:{background:th.ink,borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}, initialStyle:{fontSize:"40px",fontWeight:700,letterSpacing:"-0.04em",color:"#fff"}},
+          {isInitial:true, initial:(th.brand[0]||"B").toUpperCase(), tileStyle:{background:th.surface==="#FFFFFF"?"#F3F4F6":th.surface,border:"1px solid #E0D9CF",borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}, initialStyle:{fontSize:"40px",fontWeight:700,letterSpacing:"-0.04em",color:th.ink}} ]
+      : [ {isMark:true, src:R("markWhite","assets/mark-white.svg"), tileStyle:{background:"#FF5B10",borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}},
+          {isMark:true, src:R("markOrange","assets/mark-orange.svg"), tileStyle:{background:"#fff",border:"1px solid #E0D9CF",borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}},
+          {isMark:true, src:R("markWhite","assets/mark-white.svg"), tileStyle:{background:"#1D1D1D",borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}},
+          {isMark:true, src:R("markBlack","assets/mark-black.svg"), tileStyle:{background:"#F6F2EF",border:"1px solid #E0D9CF",borderRadius:"16px",aspectRatio:"1",display:"flex",alignItems:"center",justifyContent:"center"}} ];
+    const urlSuggestions=["stripe.com","linear.app","spotify.com"].map(u=>({label:u,onClick:()=>{ this.setState({urlInput:u}); this.later(()=>this.extractBrand(),60); }}));
+    const extractSteps=[
+      {label:"Fetching logo & favicon",ok:true},
+      {label:"Sampling color palette",ok:true},
+      {label:"Detecting type system",ok:true},
+      {label:"Re-skinning library assets",ok:false}
+    ].map((e,i)=>({label:e.label, color:e.ok?"#1D1D1D":"#969496",
+      dotStyle: e.ok
+        ? {width:"16px",height:"16px",borderRadius:"50%",background:"#2BAC76",display:"inline-flex",flex:"none"}
+        : {width:"16px",height:"16px",borderRadius:"50%",border:"2px solid rgba(255,91,16,0.3)",borderTopColor:"#FF5B10",display:"inline-block",flex:"none",animation:"biaSpin 0.7s linear infinite"} }));
+    const team=[
+      {name:"Sana Okafor",email:"sana@magiclantern.studio",initials:"SO",bg:"#0019FF",role:"Admin",bia:"Full",biaBg:"#FFE9DF",biaFg:"#FF5B10",active:"now"},
+      {name:"Devin Rao",email:"devin@magiclantern.studio",initials:"DR",bg:"#1D1D1D",role:"Editor",bia:"Full",biaBg:"#FFE9DF",biaFg:"#FF5B10",active:"2h"},
+      {name:"Maya Chen",email:"maya@magiclantern.studio",initials:"MC",bg:"#FF5B10",role:"Reviewer",bia:"Comment",biaBg:"#F3EEEB",biaFg:"#565657",active:"1d"},
+      {name:"Jonah Pace",email:"jonah@magiclantern.studio",initials:"JP",bg:"#2BAC76",role:"Viewer",bia:"None",biaBg:"#F3EEEB",biaFg:"#969496",active:"3d"},
+      {name:"Priya Nair",email:"priya@magiclantern.studio",initials:"PN",bg:"#7A3DFF",role:"Editor",bia:"Full",biaBg:"#FFE9DF",biaFg:"#FF5B10",active:"5d"}
+    ];
+    const shareList=[
+      {isPerson:true,name:"Sana Okafor",sub:"sana@magiclantern.studio",initials:"SO",bg:"#0019FF",role:"Owner"},
+      {isBia:true,name:"Bia",sub:"AI design agent",role:"Can edit"},
+      {isPerson:true,name:"Devin Rao",sub:"devin@magiclantern.studio",initials:"DR",bg:"#1D1D1D",role:"Can edit"},
+      {isPerson:true,name:"Design team",sub:"6 people",initials:"D",bg:"#FF5B10",role:"Can comment"}
+    ];
+
+    return {
+      isSlack:s.surface==="slack", isWeb:s.surface==="web",
+      atLibrary:s.webView==="library", atReview:s.webView==="review",
+      atBrandkit:s.webView==="brandkit", atBrandvoice:s.webView==="brandvoice", atTeam:s.webView==="team",
+      libBg:s.webView==="library"?"#FFE9DF":"transparent", libColor:s.webView==="library"?"#FF5B10":"#1D1D1D",
+      msgs, typing:s.typing, suggestions, hasSuggestions:s.suggestions.length>0,
+      showInlineSuggestions:s.suggestions.length>0 && !s.typing,
+      composer:s.composer,
+      onComposerInput:(e)=>this.setState({composer:e.target.value}),
+      onComposerKey:(e)=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); this.sendSlack(); } },
+      sendSlack:()=>this.sendSlack(),
+      goReview:()=>this.goReview(), postChannel:()=>this.postChannel(), regenSlack:()=>this.regenSlack(),
+      goSlack:()=>this.goSlack(), goWeb:()=>this.goWeb(), goLibrary:()=>this.goLibrary(),
+      navWorkspace, assets, swatches, team, shareList,
+      convRef:this.convRef,
+      fileRef:this.fileRef, pickFiles:()=>this.pickFiles(), onFiles:(e)=>this.onFiles(e),
+      onDragOver:(e)=>this.onDragOver(e), onDragLeave:(e)=>this.onDragLeave(e), onDrop:(e)=>this.onDrop(e),
+      gridStyle:{padding:"14px 40px 48px",display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(264px,1fr))",gap:"22px"},
+      dropCardStyle:{cursor:"pointer",minHeight:"180px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"20px",borderRadius:"18px",border:s.dragging?("2px dashed "+th.accent):"2px dashed #D8CFC2",background:s.dragging?th.accentSoft:"#FBF9F7",transition:"background 140ms ease, border-color 140ms ease"},
+      dropIconBg:th.accentSoft, dropTitle:s.dragging?"Drop to upload":"Upload files",
+      logoTiles, urlSuggestions, extractSteps,
+      isThemed, brandName:th.brand, sourceUrl:th.sourceUrl||"",
+      accent:th.accent, accentText:th.accentText, accentSoft:th.accentSoft,
+      cardSurface:th.surface, cardInk:th.ink, cardMuted:th.muted,
+      cardBrand:th.cardBrand, cardWordmark:th.wordmark?"true":"false",
+      fontName:th.font, fontNote:th.fontNote, wordmarkNote:th.wordmarkNote,
+      showWordmark:!isThemed, showBrandWord:isThemed,
+      colorCaption:th.colorCaption, logoCaption:isThemed?("Extracted · "+th.brand):"4 marks",
+      kitChipBg:isThemed?th.accentSoft:"#F3EEEB", kitChipBorder:isThemed?this.hexA(th.accent,0.3):"#E0D9CF",
+      urlBorder:s.urlInput?this.hexA(th.accent,0.4):"#E0D9CF",
+      urlInput:s.urlInput, onUrlInput:(e)=>this.setUrl(e.target.value),
+      onUrlKey:(e)=>{ if(e.key==="Enter"){ e.preventDefault(); this.extractBrand(); } },
+      extractBrand:()=>this.extractBrand(), revertBrand:()=>this.revertBrand(),
+      extracting:s.extracting, extractHost:s.extractHost,
+      extractBarStyle:{height:"100%",width:"100%",background:"linear-gradient(90deg,#FF5B10,#FF8A4D)",transformOrigin:"left",animation:"biaShimmer 1.3s linear infinite",backgroundSize:"200% 100%"},
+      version:s.version, regenerating:s.regenerating, comments, commentCount:s.comments.length, resolvedCount,
+      showPending:!!s.pendingPin, pendingPin:s.pendingPin||{x:0,y:0}, nextNum:s.comments.length+1,
+      cDraft:s.cDraft, onCDraftInput:(e)=>this.setState({cDraft:e.target.value}),
+      tagBia:s.tagBia, toggleTag:()=>this.toggleTag(), quickFill:()=>this.quickFill(),
+      onStageClick:(e)=>this.onStageClick(e), cancelPin:()=>this.cancelPin(), postComment:()=>this.postComment(),
+      stageRef:this.stageRef, onStageDown:(e)=>this.onStageDown(e),
+      zoomIn:()=>this.zoomBtn(1.25), zoomOut:()=>this.zoomBtn(0.8), fitView:()=>this.fitView(),
+      zoomLabel:Math.round(s.zoom*100)+"%", invZoom:Math.round((1/s.zoom)*1000)/1000,
+      canvasStyle:{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",transform:"translate("+s.panX+"px,"+s.panY+"px) scale("+s.zoom+")",transformOrigin:"0 0"},
+      tagBg:s.tagBia?"#FFE9DF":"#fff", tagFg:s.tagBia?"#FF5B10":"#565657", tagBorder:s.tagBia?"#FDD7CD":"#E0D9CF",
+      setV1:()=>this.setVersion(1), setV2:()=>this.setVersion(2),
+      v1bg:s.version===1?"#1D1D1D":"transparent", v1fg:s.version===1?"#fff":"#565657",
+      v2bg:s.version===2?"#1D1D1D":"transparent", v2fg:s.version===2?"#fff":"#565657",
+      openShare:()=>this.openShare(), closeShare:()=>this.closeShare(), stop:(e)=>this.stop(e),
+      copyLink:()=>this.copyLink(), approve:()=>this.approve(), showShare:s.showShare,
+      hasToast:!!s.toast, toast:s.toast,
+      swSlackBg:s.surface==="slack"?"#FF5B10":"transparent", swSlackFg:s.surface==="slack"?"#fff":"#B5B8BC",
+      swWebBg:s.surface==="web"?"#FF5B10":"transparent", swWebFg:s.surface==="web"?"#fff":"#B5B8BC",
+      wSlackBg:s.surface==="slack"?"#FF5B10":"transparent", wSlackFg:s.surface==="slack"?"#fff":"#565657",
+      wWebBg:s.surface==="web"?"#1D1D1D":"transparent", wWebFg:s.surface==="web"?"#fff":"#565657"
+    };
+  }
+}
+</script>
+</body>
+</html>

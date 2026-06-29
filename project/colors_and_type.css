@@ -1,0 +1,220 @@
+/* =============================================================
+   Magic Lantern — Colors & Type
+   Generative AI cinematic platform and studio.
+   Source of truth: /Brand-Style-Guide (Figma).
+   ============================================================= */
+
+/* ---------- FONTS -------------------------------------------- */
+@font-face {
+  font-family: "iBrands Ligature";
+  src: url("fonts/iBrandsLigature.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Poppins is loaded via Google Fonts in HTML; register here
+   so CSS var references resolve the same way. */
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"); */
+
+:root {
+  /* -------------------------------------------------------------
+     COLOR SYSTEM
+     Lantern Orange is the hero color — lead with it.
+     Neutrals are black + white + Stone (warm off-white).
+     ------------------------------------------------------------- */
+
+  /* Brand — Lantern Orange */
+  --ml-orange-900: #FF5B10; /* Primary. Hero color. Buttons, accents, headlines on dark. */
+  --ml-orange-800: #F78C53;
+  --ml-orange-500: #F9B8A4;
+  --ml-orange-300: #FDD7CD;
+  --ml-orange-100: #FFE9DF;
+
+  /* Neutrals — Obsidian + Stone */
+  --ml-black:        #000000;
+  --ml-obsidian-900: #1D1D1D; /* near-black surface — avoid pure black when layering */
+  --ml-obsidian-800: #2D2727;
+  --ml-ink-700:      #565657;
+  --ml-ink-500:      #6D6B6B;
+  --ml-ink-400:      #969496;
+  --ml-ink-300:      #A5A3A4; /* 'Type=Stone/400' */
+  --ml-ink-200:      #C1BFC3; /* dividers on dark */
+  --ml-ink-100:      #D6D4D8;
+  --ml-stone-300:    #E0D9CF; /* warm divider */
+  --ml-stone-200:    #F3EEEB;
+  --ml-stone-100:    #F6F2EF; /* primary warm surface — the 'paper' of the brand */
+  --ml-white:        #FFFFFF;
+
+  /* Support accents (used sparingly in social / typographic moments) */
+  --ml-electric-blue: #0019FF; /* rare — only for type experiments */
+  --ml-violet-glow:   rgba(74, 58, 255, 0.08); /* soft glow shadow */
+
+  /* Overlays */
+  --ml-overlay-white-05: rgba(255,255,255,0.05);
+  --ml-overlay-white-30: rgba(255,255,255,0.30);
+  --ml-overlay-black-25: rgba(0,0,0,0.25);
+  --ml-overlay-black-50: rgba(29,29,29,0.5);
+
+  /* -------------------------------------------------------------
+     SEMANTIC — map the palette to usage
+     Default theme: LIGHT on Stone. See .ml-dark override below.
+     ------------------------------------------------------------- */
+
+  --bg:            var(--ml-stone-100);    /* page background — warm paper */
+  --bg-elevated:   var(--ml-white);        /* cards, modals */
+  --bg-inverse:    var(--ml-black);        /* hero section flip */
+  --bg-accent:     var(--ml-orange-900);   /* primary accent surface */
+
+  --fg:            var(--ml-black);        /* body text */
+  --fg-muted:      var(--ml-ink-500);
+  --fg-subtle:     var(--ml-ink-400);
+  --fg-inverse:    var(--ml-white);
+  --fg-accent:     var(--ml-orange-900);   /* emphasis text */
+
+  --border:        var(--ml-stone-300);
+  --border-strong: var(--ml-black);
+  --border-accent: var(--ml-orange-900);
+
+  --focus-ring:    var(--ml-orange-900);
+  --link:          var(--ml-orange-900);
+
+  /* Elevation — shadows are restrained. Brand leans on *color contrast*,
+     not depth. A single soft glow + a functional drop exist. */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md:  0 6px 24px rgba(0,0,0,0.08);
+  --shadow-lg:  0 18px 48px rgba(0,0,0,0.12);
+  --shadow-glow: 0 8px 40px var(--ml-violet-glow);
+
+  /* Corners — the brand leans circular. Pills for CTAs, 24px for cards,
+     9999 for mark containers. */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+
+  /* Spacing — 4px baseline. Brand uses large page margins (56px). */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;   /* the page margin in brand guide */
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* -------------------------------------------------------------
+     TYPE SYSTEM
+     Primary: iBrands Ligature — cinematic display. Custom.
+        -> Headlines only. Title case. Loose leading (1.4).
+           Tight letter-spacing (-0.06em).
+     Secondary: Poppins — UI + body. Clarity workhorse.
+        -> Tight letter-spacing (-0.04em) everywhere.
+           Medium (500) is the default weight, not Regular.
+     ------------------------------------------------------------- */
+
+  --font-display: "iBrands Ligature", "Fraunces", "Times New Roman", serif;
+  --font-sans:    "Poppins", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Default tracking — brand is aggressively tight. Override per-use. */
+  --tracking-tight: -0.04em;   /* Poppins body/UI — ALWAYS */
+  --tracking-display: -0.06em; /* iBrands Ligature display */
+  --tracking-normal: 0em;
+
+  /* Line-height */
+  --lh-tight: 1.1;       /* headlines, UI */
+  --lh-display: 1.4;     /* iBrands ligature display */
+  --lh-body: 1.5;        /* long-form */
+
+  /* Type scale — built from the Figma (14 / 16 / 24 / 40 / 72 / 88 / 120 / 300) */
+  --text-xs:   12px;
+  --text-sm:   14px;   /* page meta, small UI */
+  --text-base: 16px;   /* body default */
+  --text-md:   18px;
+  --text-lg:   24px;   /* section intro text, subhead */
+  --text-xl:   27px;
+  --text-2xl:  40px;
+  --text-3xl:  48px;
+  --text-4xl:  72px;
+  --text-5xl:  88px;   /* section title */
+  --text-6xl:  120px;  /* hero */
+  --text-display: 300px; /* giant numeric, brand guide style */
+}
+
+/* ---------- DARK THEME --------------------------------------- */
+.ml-dark {
+  --bg:          var(--ml-black);
+  --bg-elevated: var(--ml-obsidian-900);
+  --bg-inverse:  var(--ml-stone-100);
+  --fg:          var(--ml-white);
+  --fg-muted:    var(--ml-ink-200);
+  --fg-subtle:   var(--ml-ink-300);
+  --fg-inverse:  var(--ml-black);
+  --border:      var(--ml-overlay-white-05);
+  --border-strong: var(--ml-white);
+  color-scheme: dark;
+}
+
+/* ---------- SEMANTIC ELEMENT DEFAULTS ------------------------ */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-base);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display headlines — iBrands Ligature, loose leading.
+   Use sparingly: brand name, hero moments, section covers. */
+.ml-display,
+h1.ml-display, h2.ml-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+}
+
+/* Functional headlines — Poppins Medium. The workhorse. */
+h1 { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-5xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); }
+h2 { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-2xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); }
+h3 { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-lg); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); }
+h4 { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-md); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); }
+h5 { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-base); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); }
+
+p       { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-base); line-height: var(--lh-body); }
+.p-lead { font-size: var(--text-lg); line-height: var(--lh-tight); }
+.p-meta { font-size: var(--text-sm); letter-spacing: var(--tracking-tight); }
+small   { font-size: var(--text-xs); }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease, opacity 120ms ease;
+}
+a:hover { border-bottom-color: currentColor; }
+a:active { opacity: 0.7; }
+
+code, pre { font-family: var(--font-mono); }
+
+/* Eyebrow / tag label — 14px Poppins Medium, tight tracking.
+   Used in brand guide page-meta ("02  Magic Lantern Brand Identity Guidelines"). */
+.ml-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-tight);
+  text-transform: none;
+}

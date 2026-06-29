@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face { font-family:"iBrands Ligature"; src:url("fonts/iBrandsLigature.ttf") format("truetype"); font-weight:400; font-display:swap; }
+</style>
+</helmet>
+
+<div style="{{ outerStyle }}">
+  <div style="{{ leftStyle }}">
+    <div style="{{ logoRowStyle }}">
+      <div style="{{ logoCircleStyle }}">
+        <sc-if value="{{ useMark }}" hint-placeholder-val="{{ true }}"><img src="{{ markSrc }}" alt="" style="width:55%; height:55%; object-fit:contain;" /></sc-if>
+        <sc-if value="{{ useInitial }}"><span style="{{ initialStyle }}">{{ initial }}</span></sc-if>
+      </div>
+      <sc-if value="{{ wm }}" hint-placeholder-val="{{ true }}"><span style="{{ wordmarkStyle }}">magic lantern</span></sc-if>
+      <sc-if value="{{ notWm }}"><span style="{{ brandStyle }}">{{ brand }}</span></sc-if>
+    </div>
+    <div>
+      <div style="{{ eyebrowStyle }}">Welcome aboard</div>
+      <div style="{{ bigStyle }}">Welcome,<br/>Maya.</div>
+    </div>
+    <div style="{{ metaStyle }}">Design team&nbsp;&nbsp;·&nbsp;&nbsp;Joined June 2026</div>
+  </div>
+  <div style="{{ rightStyle }}">
+    <img src="{{ heroImg }}" alt="" style="{{ imgStyle }}" />
+    <div style="{{ overlayStyle }}"></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:600,&quot;height&quot;:315},&quot;version&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;tsType&quot;:&quot;number&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FF5B10&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;accentText&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#000000&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;surface&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F6F2EF&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;ink&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#000000&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;muted&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;#565657&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;brand&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;magic lantern&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;wordmark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  hexA(hex,a){
+    try{ let h=(hex||'#000').replace('#',''); if(h.length===3) h=h.split('').map(c=>c+c).join('');
+      const n=parseInt(h,16); return "rgba("+((n>>16)&255)+","+((n>>8)&255)+","+(n&255)+","+a+")"; }
+    catch(e){ return hex; }
+  }
+  renderVals(){
+    const p=this.props;
+    const v=Number(p.version ?? 1);
+    const accent=p.accent || '#FF5B10';
+    const accentText=p.accentText || '#000000';
+    const surface=p.surface || '#F6F2EF';
+    const ink=p.ink || '#000000';
+    const muted=p.muted || '#565657';
+    const brand=p.brand || 'magic lantern';
+    const wm=!(p.wordmark===false||p.wordmark==="false"||p.wordmark===0||p.wordmark==="0");
+    const initial=((brand||'M').trim()[0]||'M').toUpperCase();
+    const v2=v===2;
+
+    const outerBg=v2?accent:surface;
+    const circleBg=v2?'#FFFFFF':accent;
+    const R=(k,p)=>{ try{ return (window.__resources&&window.__resources[k])||p; }catch(e){ return p; } };
+    const markSrc=v2?R('markOrange','assets/mark-orange.svg'):R('markWhite','assets/mark-white.svg');
+    const heroImg=R('heroGrain','assets/hero-grain.png');
+    const initialColor=v2?accent:accentText;
+    const bigColor=v2?accentText:ink;
+    const eyebrowColor=v2?this.hexA(accentText,0.82):accent;
+    const metaColor=v2?this.hexA(accentText,0.78):muted;
+    const wordmarkColor=v2?accentText:'#000000';
+    const brandColor=v2?accentText:ink;
+
+    const imgStyle=v2
+      ? {position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',mixBlendMode:'luminosity',opacity:0.92}
+      : {position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'};
+    const overlayStyle=v2
+      ? {position:'absolute',inset:0,background:'linear-gradient(90deg, '+accent+' 0%, '+this.hexA(accent,0.12)+' 38%, transparent 60%)'}
+      : {position:'absolute',inset:0,boxShadow:'inset 7cqw 0 9cqw -4cqw '+surface};
+
+    return {
+      wm, notWm:!wm, useMark:wm, useInitial:!wm, markSrc, heroImg, brand, initial,
+      outerStyle:{width:'100%',height:'100%',containerType:'size',display:'flex',background:outerBg,overflow:'hidden',fontFamily:"'Poppins',sans-serif",letterSpacing:'-0.04em'},
+      leftStyle:{flex:'1 1 60%',padding:'7cqw 6cqw',display:'flex',flexDirection:'column',justifyContent:'space-between'},
+      rightStyle:{flex:'1 1 40%',position:'relative',overflow:'hidden'},
+      logoRowStyle:{display:'flex',alignItems:'center',gap:'2.4cqw'},
+      logoCircleStyle:{width:'7cqw',height:'7cqw',borderRadius:'9999px',background:circleBg,display:'flex',alignItems:'center',justifyContent:'center',flex:'none'},
+      initialStyle:{fontFamily:"'Poppins',sans-serif",fontWeight:700,fontSize:'3.6cqw',letterSpacing:'-0.04em',color:initialColor},
+      wordmarkStyle:{fontFamily:"'iBrands Ligature',serif",fontSize:'4.4cqw',letterSpacing:'-0.08em',color:wordmarkColor},
+      brandStyle:{fontFamily:"'Poppins',sans-serif",fontWeight:600,fontSize:'4cqw',letterSpacing:'-0.05em',color:brandColor},
+      eyebrowStyle:{fontSize:'2.6cqw',fontWeight:600,letterSpacing:'0.18em',textTransform:'uppercase',color:eyebrowColor,marginBottom:'2.5cqw'},
+      bigStyle:{fontSize:'11cqw',fontWeight:700,lineHeight:0.98,color:bigColor},
+      metaStyle:{fontSize:'3cqw',fontWeight:500,color:metaColor},
+      imgStyle, overlayStyle
+    };
+  }
+}
+</script>
+</body>
+</html>
